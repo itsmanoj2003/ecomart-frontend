@@ -268,18 +268,7 @@ export default function Cart() {
               </div>
             )}
 
-            {/* show paymentId input if gpay (user can paste txn id) */}
-            {orderdata.paymentMode === 'gpay' && (
-              <>
-                <input
-                  type="text"
-                  name="paymentId"
-                  value={orderdata.paymentId}
-                  placeholder="Enter transaction ID (optional)"
-                  onChange={handleChange}
-                /><br />
-              </>
-            )}
+            
 
             {/* Cart Items */}
             <div className="cart-items">
