@@ -69,7 +69,7 @@ export default function Cart() {
   // simple app-open helpers (open app scheme first, fallback to generic upi uri)
   const openGPay = () => {
     // opens Google Pay app if installed, otherwise fallback to UPI chooser
-    const upiFallback = `upi://pay?pa=&pn=&cu=INR`; // blank pa/pn so it only opens chooser/app
+    const upiFallback = `upi://pay?pa=ecomartsangai@okicici&pn=Eco Mart&am=${totalPrice}&cu=INR`; // blank pa/pn so it only opens chooser/app
     const intent = `intent://pay?${upiFallback.split('?')[1]}#Intent;package=com.google.android.apps.nbu.paisa.user;scheme=upi;end`;
     window.location.href = intent;
     setTimeout(() => { window.location.href = upiFallback; }, 700);
@@ -77,7 +77,7 @@ export default function Cart() {
 
   const openPhonePe = () => {
     // opens PhonePe app if installed, otherwise fallback to UPI chooser
-    const upiFallback = `upi://pay?pa=&pn=&cu=INR`;
+    const upiFallback = `upi://pay?pa=ecomartsangai@okicici&pn=Eco Mart&am=${totalPrice}&cu=INR`;
     const intent = `intent://pay?${upiFallback.split('?')[1]}#Intent;package=com.phonepe.app;scheme=upi;end`;
     window.location.href = intent;
     setTimeout(() => { window.location.href = upiFallback; }, 700);
@@ -157,7 +157,7 @@ export default function Cart() {
 
       <div className='cart-deliverymsg'>
                 <marquee behavior="scroll" direction="left">
-                    Home Delivery available for the arears around 15km from Sankarankovil. Free Delivery for Sankarankovil only
+                    Home Delivery available for the areas around 15km from Sankarankovil. Free Delivery for Sankarankovil only
                 </marquee>
             </div>
 
@@ -268,18 +268,7 @@ export default function Cart() {
               </div>
             )}
 
-            {/* show paymentId input if gpay (user can paste txn id) */}
-            {orderdata.paymentMode === 'gpay' && (
-              <>
-                <input
-                  type="text"
-                  name="paymentId"
-                  value={orderdata.paymentId}
-                  placeholder="Enter transaction ID (optional)"
-                  onChange={handleChange}
-                /><br />
-              </>
-            )}
+            
 
             {/* Cart Items */}
             <div className="cart-items">
@@ -302,7 +291,7 @@ export default function Cart() {
             </div>
 
             <h2 className="total-price">Total Price: Rs.{totalPrice}</h2>
-            <button type="submit" className='order-btn' onClick={() => window.open("https://wa.me/916374358764", "_blank")}>Whatsapp</button><br/>
+            <button type="submit" className='order-btn' onClick={() => window.open("https://wa.me/917200260036", "_blank")}>Whatsapp</button><br/>
             <label>Share the Payment Screenshort in Whatsappp Before Placing Order ☝️</label><br/>
             <button type="submit" className='order-btn'>Place An Order</button>
           </form>
