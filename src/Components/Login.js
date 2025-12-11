@@ -13,7 +13,7 @@ export default function Login() {
 
   function handleLogin(e){
     e.preventDefault()
-    axios.post('https://ecomart-api-c4er.onrender.com/ecomart/login',{email,password})
+    axios.post('http://localhost:3001/ecomart/login',{email,password})
     .then(res=>{
       if (email === 'admin@example.com' && password==='admin') {
         auth.login({ email, role: 'admin' });

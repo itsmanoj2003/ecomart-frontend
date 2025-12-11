@@ -36,6 +36,16 @@ export default function About() {
 
         </div>
 
+        <div className="stall-coming-container">
+  <div className="stall-coming-box">
+    <p className="stall-emoji">🛒 Something exciting is coming to Ecomart Sankarankovil…</p>
+    <p className="stall-text">
+      Loading our brand-new stall experience… <strong>Stay tuned!</strong>
+    </p>
+    <p className="stall-tags">#EcomartStallReveal #ComingSoon</p>
+  </div>
+</div>
+
         </div>
     </div>
   )

@@ -10,7 +10,7 @@ export default function Deliveryboy() {
 
   useEffect(() => {
     axios
-      .get('https://ecomart-api-c4er.onrender.com/ecomart/getorders')
+      .get('http://localhost:3001/ecomart/getorders')
       .then((res) => setOrders(res.data))
       .catch((err) => console.log(err));
   }, []);
@@ -27,7 +27,7 @@ export default function Deliveryboy() {
     }
 
     axios
-      .put(`https://ecomart-api-c4er.onrender.com/ecomart/mark-delivered/${selectedOrderId}`, {
+      .put(`http://localhost:3001/ecomart/mark-delivered/${selectedOrderId}`, {
         deliveredBy: deliveryBoyName,
       })
       .then(() => {
@@ -87,6 +87,18 @@ export default function Deliveryboy() {
                     <strong>Address:</strong>
                   </td>
                   <td>{order.address}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>City:</strong>
+                  </td>
+                  <td>{order.city}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Payment Mode:</strong>
+                  </td>
+                  <td>{order.paymentMode}</td>
                 </tr>
                 <tr>
                   <td>

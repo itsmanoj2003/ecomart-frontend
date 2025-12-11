@@ -101,7 +101,7 @@ export default function AdminOrders() {
     const [orders, setOrders] = useState([]);
 
     const fetchOrders = () => {
-        axios.get('https://ecomart-api-c4er.onrender.com/ecomart/getorders')
+        axios.get('http://localhost:3001/ecomart/getorders')
             .then(res => setOrders(res.data))
             .catch(err => console.log(err));
     };
@@ -111,7 +111,7 @@ export default function AdminOrders() {
     }, []);
 
     const handleDelete = (id) => {
-        axios.delete(`https://ecomart-api-c4er.onrender.com/ecomart/deleteorder/${id}`)
+        axios.delete(`http://localhost:3001/ecomart/deleteorder/${id}`)
             .then(() => {
                 alert('Order deleted successfully');
                 fetchOrders(); // refresh list
@@ -148,6 +148,14 @@ export default function AdminOrders() {
                                 <tr>
                                     <td><strong>Address:</strong></td>
                                     <td>{order.address}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>City:</strong></td>
+                                    <td>{order.city}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Payment Mode:</strong></td>
+                                    <td>{order.paymentMode}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Order Time:</strong></td>

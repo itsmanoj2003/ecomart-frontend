@@ -4,7 +4,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 80px;
+    margin-top: 230px;
+    flex-direction: column;
 }
 
 .about-main{
@@ -335,4 +336,103 @@
         height: 500px;
     }
 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* -------------------------- */
+/* Stall Coming Soon Section */
+/* -------------------------- */
+
+.stall-coming-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+  margin-top: 40px;
+}
+
+.stall-coming-box {
+  background: #fff;
+  border-radius: 12px;
+  padding: 25px 20px;
+  max-width: 700px;
+  width: 100%;
+  text-align: center;
+  border: 1px solid #e6e6e6;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  animation: fadeInUp 0.5s ease;
+}
+
+.stall-emoji {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.stall-text {
+  font-size: 18px;
+  color: #444;
+  margin-bottom: 12px;
+}
+
+.stall-text strong {
+  color: #e63946;
+}
+
+.stall-tags {
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .stall-coming-box {
+    padding: 20px 16px;
+  }
+
+  .stall-text {
+    font-size: 16px;
+  }
+
+  .stall-emoji {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stall-text {
+    font-size: 15px;
+  }
+
+  .stall-emoji {
+    font-size: 16px;
+  }
+
+  .stall-tags {
+    font-size: 13px;
+  }
 }

@@ -16,7 +16,9 @@ export function AuthProvider(props) {
         }
     }, [user]);
 
+
     function login(userData) {
+        localStorage.removeItem('user');
         setUser(userData);
     }
 
