@@ -27,7 +27,7 @@ export default function Productupdateform({ setUpdatepopup, data }) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        axios.put(`http://localhost:3001/ecomart/updateproddata/${data._id}`, updatedata)
+        axios.put(`https://ecomart-backend-2-h3fw.onrender.com/ecomart/updateproddata/${data._id}`, updatedata)
             .then(res => alert('Product Updated Successfully'),
                 setUpdatepopup(false))
     }
