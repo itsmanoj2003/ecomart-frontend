@@ -34,7 +34,7 @@ export default function Admin() {
     const [search, setSearch] = useState('')
 
     useEffect(() => {
-        axios.get('http://localhost:3001/ecomart/getproddata')
+        axios.get('https://ecomart-backend-2-h3fw.onrender.com/ecomart/getproddata')
             .then(res => setData(res.data))
             .catch(err => console.log(err))
     }, [])
@@ -49,7 +49,7 @@ export default function Admin() {
 
     function handleSubmit(e) {
         e.preventDefault()
-        axios.post('http://localhost:3001/ecomart/addproduct', proddata)
+        axios.post('https://ecomart-backend-2-h3fw.onrender.com/ecomart/addproduct', proddata)
             .then(res => alert("Product Added Successfully"),
                 setProddata({
                     pname: '',
@@ -75,7 +75,7 @@ export default function Admin() {
     }
 
     function handleDelete(id) {
-        axios.delete(`http://localhost:3001/ecomart/delete/${id}`)
+        axios.delete(`https://ecomart-backend-2-h3fw.onrender.com/ecomart/delete/${id}`)
             .then(res => alert('Product Deleted Successfully'))
     }
 
