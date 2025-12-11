@@ -102,7 +102,7 @@ export default function Products() {
     const [searchQuery, setSearchQuery] = useState("");  // Store search input
 
     useEffect(() => {
-        axios.get('http://localhost:3001/ecomart/getproddata')
+        axios.get('https://ecomart-backend-2-h3fw.onrender.com/ecomart/getproddata')
             .then(res => setData(res.data))
             .catch(err => console.log(err));
     }, []);

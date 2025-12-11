@@ -20,7 +20,7 @@ export default function Signup() {
   function handleSignup(e) {
     e.preventDefault();
 
-    axios.post('http://localhost:3001/ecomart/signup', userdata)
+    axios.post('https://ecomart-backend-2-h3fw.onrender.com/ecomart/signup', userdata)
       .then(res => {
 
         let users = JSON.parse(localStorage.getItem('users')) || [];

@@ -11,7 +11,7 @@ export default function Offers() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/ecomart/getoffers")
+      .get("https://ecomart-backend-2-h3fw.onrender.com/ecomart/getoffers")
       .then((res) => {
         setOffers(res.data);
         confetti({

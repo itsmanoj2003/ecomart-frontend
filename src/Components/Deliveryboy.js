@@ -10,7 +10,7 @@ export default function Deliveryboy() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/ecomart/getorders')
+      .get('https://ecomart-backend-2-h3fw.onrender.com/ecomart/getorders')
       .then((res) => setOrders(res.data))
       .catch((err) => console.log(err));
   }, []);
