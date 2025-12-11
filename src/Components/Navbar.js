@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import logo from '../Components/assets/logo.png'
 import search from '../Components/assets/search.png'
 import user from '../Components/assets/user.png'
 import { NavLink } from 'react-router-dom'
 import Profilepopup from './Profilepopup'
+import axios from 'axios'
 
 
 import Mobilemenu from '../Components/assets/mobilemenu.png'
@@ -17,6 +18,20 @@ export default function Navbar() {
   const[toggle,setToggle]=useState(false) // Mobile Menubar
 
   const auth=useAuth()
+
+  const [hasOffers, setHasOffers] = useState(false);
+  useEffect(() => {
+  axios.get("http://localhost:3001/ecomart/getoffers")
+    .then(res => {
+      if (res.data && res.data.length > 0) {
+        setHasOffers(true);
+      } else {
+        setHasOffers(false);
+      }
+    })
+    .catch(err => console.log(err));
+}, []);
+
 
 // For Popup Profile
   function profile(){     
@@ -56,7 +71,7 @@ export default function Navbar() {
     <NavLink to='/'>Home</NavLink>
     <NavLink to='/products'>Products</NavLink>
     <NavLink to='/cart'>Cart</NavLink>
-    <NavLink to='/offers' id='offers'>Special Offers</NavLink>
+    {hasOffers && <NavLink to='/offers' id='offers'>Special Offers</NavLink>}
     <NavLink to='/about'>About</NavLink>
     <NavLink to='/contact'>Contact</NavLink>
     {auth.user?.email === "admin@example.com" && <NavLink to='/admin'>Admin</NavLink>}
@@ -79,7 +94,7 @@ export default function Navbar() {
       <NavLink to="/" onClick={() => setToggle(false)} className="navlink">Home</NavLink>
       <NavLink to="/products" onClick={() => setToggle(false)} className="navlink">Products</NavLink>
       <NavLink to="/cart" onClick={() => setToggle(false)} className="navlink">Cart</NavLink>
-      <NavLink to="/offers" onClick={() => setToggle(false)} className="navlink">Special Offers</NavLink>
+      {hasOffers && <NavLink to='/offers' id='offers'>Special Offers</NavLink>}
       <NavLink to="/about" onClick={() => setToggle(false)} className="navlink">About</NavLink>
       <NavLink to="/contact" onClick={() => setToggle(false)} className="navlink">Contact</NavLink>
       {auth.user?.email === "orders@gmail.com" && (
