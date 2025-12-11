@@ -198,13 +198,14 @@
 @media  (max-width: 430px){
     
     .about{
-        margin-top: 200px;
+        margin-top: 330px;
         margin-bottom: 200px;
     }
 
     .about-main{
         flex-direction: column;
         height: auto;
+        /* overflow-y: hidden; */
     }
 
     .aboutimg1-container,.aboutimg1{
@@ -254,8 +255,9 @@
 
 @media only screen and (min-width: 440px) and (max-width: 500px){
     .about{
-        margin-top: 200px;
+        margin-top: 330px;
         margin-bottom: 200px;
+        
     }
 
     .about-main{
