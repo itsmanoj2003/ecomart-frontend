@@ -69,7 +69,7 @@ export default function Cart() {
   // simple app-open helpers (open app scheme first, fallback to generic upi uri)
   const openGPay = () => {
     // opens Google Pay app if installed, otherwise fallback to UPI chooser
-    const upiFallback = `upi://pay?pa=&pn=&cu=INR`; // blank pa/pn so it only opens chooser/app
+    const upiFallback = `upi://pay?pa=pandiraj20061977-1@oksbi&pn=Manoj&am=${totalPrice}&cu=INR`; // blank pa/pn so it only opens chooser/app
     const intent = `intent://pay?${upiFallback.split('?')[1]}#Intent;package=com.google.android.apps.nbu.paisa.user;scheme=upi;end`;
     window.location.href = intent;
     setTimeout(() => { window.location.href = upiFallback; }, 700);
