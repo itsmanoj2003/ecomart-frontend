@@ -40,9 +40,9 @@ export default function About() {
   <div className="stall-coming-box">
     <p className="stall-emoji">🛒 Something exciting is coming to Ecomart Sankarankovil…</p>
     <p className="stall-text">
-      Loading our brand-new stall launch… <strong>Stay tuned!</strong>
+      Loading our brand-new launch… <strong>Stay tuned!</strong>
     </p>
-    <p className="stall-tags">#EcomartStallReveal #ComingSoon</p>
+    <p className="stall-tags">#EcomartGrandReveal #ComingSoon</p>
   </div>
 </div>
 

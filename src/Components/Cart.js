@@ -157,7 +157,7 @@ export default function Cart() {
 
       <div className='cart-deliverymsg'>
                 <marquee behavior="scroll" direction="left">
-                    Home Delivery available for the areas around 15km from Sankarankovil. Free Delivery for Sankarankovil only
+                    Home Delivery available for the areas around 15km from Sankarankovil 🏠🛵.
                 </marquee>
             </div>
 
