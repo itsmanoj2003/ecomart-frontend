@@ -101,7 +101,7 @@ export default function AdminOrders() {
     const [orders, setOrders] = useState([]);
 
     const fetchOrders = () => {
-        axios.get('http://localhost:3001/ecomart/getorders')
+        axios.get('https://ecomart-backend-2-h3fw.onrender.com/ecomart/getorders')
             .then(res => setOrders(res.data))
             .catch(err => console.log(err));
     };
@@ -111,7 +111,7 @@ export default function AdminOrders() {
     }, []);
 
     const handleDelete = (id) => {
-        axios.delete(`http://localhost:3001/ecomart/deleteorder/${id}`)
+        axios.delete(`https://ecomart-backend-2-h3fw.onrender.com/ecomart/deleteorder/${id}`)
             .then(() => {
                 alert('Order deleted successfully');
                 fetchOrders(); // refresh list
