@@ -216,7 +216,7 @@ export default function Home() {
                         <h2 className='categories-heading'>Body Wash Products</h2>
                         <p className='categories-para'>Gentle care for your skin with refreshing fragrances and trusted protection.</p>
                     </div>
-                    <button className='categories-shopbtn' onClick={()=>navigate('/products')}>Shop With Us</button>
+                    <button className='categories-shopbtn' onClick={()=>navigate('/products')}>Shop Now ➟</button>
                 </div>
                 <img src={homeproducts} className='categories-img'/>
             </div>
@@ -228,7 +228,7 @@ export default function Home() {
                         <h2 className='categories-heading'>Stationary</h2>
                         <p className='categories-para'>From notebooks to pens – stock up on everyday essentials.</p>
                     </div>
-                    <button className='categories-shopbtn' onClick={()=>navigate('/products')}>Shop With Us</button>
+                    <button className='categories-shopbtn' onClick={()=>navigate('/products')}>Shop Now ➟</button>
                 </div>
                 <img src={stationary} className='categories-img'/>
             </div>
@@ -252,7 +252,7 @@ export default function Home() {
                         <h2 className='categories-heading'>Washing Products</h2>
                         <p className='categories-para'>From powders to liquids – powerful cleaning for every fabric.</p>
                     </div>
-                    <button className='categories-shopbtn' onClick={()=>navigate('/products')}>Shop With Us</button>
+                    <button className='categories-shopbtn' onClick={()=>navigate('/products')}Shop Now ➟</button>
                 </div>
                 <img src={washingitems} className='categories-img'/>
             </div>
