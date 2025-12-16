@@ -129,7 +129,7 @@ export default function Cart() {
 
     try {
       const res = await axios.post(
-        "https://ecomart-backend-2-h3fw.onrender.com/ecomart/order",
+        "http://localhost:3001/ecomart/order",
         JSON.stringify(updatedOrder),
         { headers: { 'Content-Type': 'application/json' } }
       );

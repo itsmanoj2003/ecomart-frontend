@@ -15,10 +15,10 @@ export default function Admin() {
     ])
 
     const [quantity] = useState([
-        '1 Piece', '1 Pack', '1 Bottle', '50 g', '100 g', '150g','200g','250 g', '500 g', '750 g',
+        '1 Piece', '1 Pack', '1 Bottle', '50 g', '100 g', '150g','200g','250 g', '500 g', '540 g', '750 g',
         '1 Kg', '1/2 Kg', '1/4 Kg', '3/4 Kg', '2 Kg', '3 Kg', '4 Kg', '5 Kg',
         '10 Kg', '15 Kg', '20 Kg', '25 Kg',
-        '50 ml', '100 ml', '150ml','200ml' ,'250 ml', '500 ml', '750 ml',
+        '50 ml', '60 ml', '100 ml','120 ml', '150 ml','200 ml' ,'250 ml', '500 ml', '750 ml',
         '1 Lit', '1/2 Lit', '1/4 Lit', '3/4 Lit',
         '2 Lit', '3 Lit', '4 Lit', '5 Lit'
     ])
