@@ -113,7 +113,7 @@ export default function Admin() {
                                 {/* NEW PRODUCT CODE INPUT – NO CLASS NAME */}
                                 <input
                                     type="text"
-                                    placeholder="Product Code"
+                                    placeholder="Bar Code"
                                     id='admin-productcode'
                                     name="pcode"
                                     value={proddata.pcode}
