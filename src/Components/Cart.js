@@ -103,12 +103,6 @@ export default function Cart() {
       return;
     }
 
-    if (orderdata.paymentMode === 'gpay' && !orderdata.paymentId) {
-      // If you want to force paste TXN id, keep this; else remove to allow redirection-only flow.
-      alert("Please enter the transaction ID for online payment.");
-      return;
-    }
-
     const cityName = orderdata.city.trim().toLowerCase();
     if (cityName !== 'sankarankovil' && cityName !== 'snkl' && cityName !== 'sangai' && totalPrice <= 1000) {
       alert("Minimum order amount must be more than ₹1000 for your city.");
