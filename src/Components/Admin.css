@@ -95,7 +95,7 @@
 }
 
 
-#admin-productname,#price,#desc,#prod-img{
+#admin-productname,#price,#desc,#prod-img,#admin-productcode{
     height: 40px;
     width: 400px;
     outline: none;
@@ -236,8 +236,11 @@
 .admin-searchbar{
     margin-top: 15px;
     width: 800px;
+    height: 30px;
+    padding-left: 5px;
+    border-radius: 5px;
+    border: 1px solid #333;
 }
-
 .admin-searchbar::placeholder{
     font-family: "Poppins", serif;
 }
