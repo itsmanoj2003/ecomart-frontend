@@ -11,7 +11,7 @@ export default function Admin() {
     const [list] = useState([
         'Dry Products', 'Sauces', 'Snacks', "Women's beauty", 'Men\'s beauty', 'Health care',
         'Dairy and Beverages', 'Cleaning Agents', 'Devotional products', 'Baby products',
-        'Toys and gifts', 'Home Hold', 'Oil Products', 'Out of Stock'
+        'Toys and gifts', 'Home Hold', 'Oil Products', 'Juices', 'Vegetables', 'Out of Stock'
     ])
 
     const [quantity] = useState([
