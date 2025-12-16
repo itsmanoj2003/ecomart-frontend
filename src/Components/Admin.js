@@ -231,7 +231,8 @@ export default function Admin() {
                             {Array.isArray(data) && data.map((category, key) => {
                                 const filteredProducts = category.products.filter(x =>
                                     x.pname.toLowerCase().includes(search) ||
-                                    x.pcategory.toLowerCase().includes(search)
+                                    x.pcategory.toLowerCase().includes(search) ||
+                                    x.pcode.includes(search)
                                 )
                                 if (filteredProducts.length === 0) return null
 
