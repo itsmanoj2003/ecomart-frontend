@@ -232,7 +232,7 @@ export default function Admin() {
                                 const filteredProducts = category.products.filter(x =>
                                     x.pname.toLowerCase().includes(search) ||
                                     x.pcategory.toLowerCase().includes(search) ||
-                                    x.pcode.includes(search)
+                                    String(x.pcode).includes(search)
                                 )
                                 if (filteredProducts.length === 0) return null
 
