@@ -27,7 +27,7 @@ export default function Deliveryboy() {
     }
 
     axios
-      .put(`http://localhost:3001/ecomart/mark-delivered/${selectedOrderId}`, {
+      .put(`https://ecomart-backend-2-h3fw.onrender.com/ecomart/mark-delivered/${selectedOrderId}`, {
         deliveredBy: deliveryBoyName,
       })
       .then(() => {
@@ -62,97 +62,88 @@ export default function Deliveryboy() {
       {orders.length === 0 ? (
         <p className="no-orders">No orders found.</p>
       ) : (
-        orders.map((order) => (
-          <div key={order._id} className="bill">
-            <h2 className="bill-title">EcoMart Supermarket</h2>
-            <p className="bill-subtitle">Thank you for shopping with us!</p>
-            <hr />
+        orders.map((order) => {
 
-            <table className="users-detailable">
-              <tbody>
-                <tr>
-                  <td>
-                    <strong>Name:</strong>
-                  </td>
-                  <td>{order.name}</td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>Mobile:</strong>
-                  </td>
-                  <td>{order.mobile}</td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>Address:</strong>
-                  </td>
-                  <td>{order.address}</td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>City:</strong>
-                  </td>
-                  <td>{order.city}</td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>Payment Mode:</strong>
-                  </td>
-                  <td>{order.paymentMode}</td>
-                </tr>
-                <tr>
-                  <td>
-                    <strong>Order Time:</strong>
-                  </td>
-                  <td>{new Date(order.date).toLocaleString()}</td>
-                </tr>
-                {order.status === 'Delivered' && (
+          const gstTotal = order.gstTotal || 0;
+          const deliveryCharge = 30;
+          const grandTotal = order.total + gstTotal + deliveryCharge;
+
+          return (
+            <div key={order._id} className="bill">
+              <h2 className="bill-title">EcoMart Supermarket</h2>
+              <p className="bill-subtitle">Thank you for shopping with us!</p>
+              <hr />
+
+              <table className="users-detailable">
+                <tbody>
+                  <tr><td><strong>Name:</strong></td><td>{order.name}</td></tr>
+                  <tr><td><strong>Mobile:</strong></td><td>{order.mobile}</td></tr>
+                  <tr><td><strong>Address:</strong></td><td>{order.address}</td></tr>
+                  <tr><td><strong>City:</strong></td><td>{order.city}</td></tr>
+                  <tr><td><strong>Payment Mode:</strong></td><td>{order.paymentMode}</td></tr>
+                  <tr><td><strong>Order Time:</strong></td><td>{new Date(order.date).toLocaleString()}</td></tr>
+
+                  {order.status === 'Delivered' && (
+                    <tr>
+                      <td><strong>Delivered By:</strong></td>
+                      <td>{order.deliveredBy}</td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+
+              <table className="bill-table">
+                <thead>
                   <tr>
-                    <td>
-                      <strong>Delivered By:</strong>
-                    </td>
-                    <td>{order.deliveredBy}</td>
+                    <th>Item</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                    <th>Subtotal</th>
                   </tr>
-                )}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {order.items.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.itemname}</td>
+                      <td>{item.quantity}</td>
+                      <td>Rs.{item.price}</td>
+                      <td>Rs.{item.subtotal}</td>
+                    </tr>
+                  ))}
 
-            <table className="bill-table">
-              <thead>
-                <tr>
-                  <th>Item</th>
-                  <th>Qty</th>
-                  <th>Price</th>
-                  <th>Subtotal</th>
-                </tr>
-              </thead>
-              <tbody>
-                {order.items.map((item, index) => (
-                  <tr key={index}>
-                    <td>{item.pname}</td>
-                    <td>{item.quantity}</td>
-                    <td>Rs.{item.pprice}</td>
-                    <td>Rs.{item.subtotal}</td>
+                  {/* TOTALS */}
+                  <tr>
+                    <td colSpan="3">Net Total</td>
+                    <td>Rs.{order.total}</td>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                  <tr>
+                    <td colSpan="3">GST Amount</td>
+                    <td>Rs.{gstTotal}</td>
+                  </tr>
+                  <tr>
+                    <td colSpan="3">Delivery Charge</td>
+                    <td>Rs.{deliveryCharge}</td>
+                  </tr>
+                  <tr style={{border:'0px'}}>
+                    <td colSpan="3" style={{border:'0px',color:'red'}}><strong>Grand Total</strong></td>
+                    <td style={{border:'0px',color:'red'}}><strong>Rs.{grandTotal}</strong></td>
+                  </tr>
+                </tbody>
+              </table><br/>
 
-            <hr />
-            <h3 className="bill-total">Total Amount: Rs.{order.total}</h3>
+              {order.status !== 'Delivered' && (
+                <button
+                  className="delivered-btn"
+                  onClick={() => handleDeliveredClick(order._id)}
+                >
+                  ✅ Delivered
+                </button>
+              )}
 
-            {order.status !== 'Delivered' && (
-              <button
-                className="delivered-btn"
-                onClick={() => handleDeliveredClick(order._id)}
-              >
-                ✅ Delivered
-              </button>
-            )}
-
-            <p className="bill-footer">Visit Again! 😊</p>
-          </div>
-        ))
+              <p className="bill-footer">Visit Again! 😊</p>
+            </div>
+          );
+        })
       )}
 
       {isModalOpen && (

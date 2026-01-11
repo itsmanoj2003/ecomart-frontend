@@ -8,39 +8,39 @@ export default function Admin() {
 
     const navigate = useNavigate()
 
-    const [list] = useState([
-        'Dry Products', 'Sauces', 'Snacks', "Women's beauty", 'Men\'s beauty', 'Health care',
-        'Dairy and Beverages', 'Cleaning Agents', 'Devotional products', 'Baby products',
-        'Toys and gifts', 'Home Hold', 'Oil Products', 'Juices', 'Vegetables', 'Out of Stock'
-    ])
-
-    const [quantity] = useState([
-        '1 Piece', '1 Pack', '1 Bottle', '50 g', '100 g', '150g','200g','250 g', '500 g', '540 g', '750 g',
-        '1 Kg', '1/2 Kg', '1/4 Kg', '3/4 Kg', '2 Kg', '3 Kg', '4 Kg', '5 Kg',
-        '10 Kg', '15 Kg', '20 Kg', '25 Kg',
-        '50 ml', '60 ml', '100 ml','120 ml', '150 ml','200 ml' ,'250 ml', '500 ml', '750 ml',
-        '1 Lit', '1/2 Lit', '1/4 Lit', '3/4 Lit',
-        '2 Lit', '3 Lit', '4 Lit', '5 Lit'
-    ])
-
     const [toggle, setToggle] = useState(false)
     const [updatepopup, setUpdatepopup] = useState(false)
 
+
+    const [list] = useState([
+        'Dry Products', 'Sauces', 'Snacks', "Women's beauty", 'Men\'s beauty', 'Health care',
+        'Dairy Products', 'Cleaning Agents', 'Devotional products', 'Baby products',
+        'Toys and gifts', 'Home Hold', 'Oil Products', 'Juices & Beverages', 'Vegetables', 'Jam',  'Out of Stock'
+    ])
+
     const [proddata, setProddata] = useState({
-        pcode: '',
-        pname: '',
-        pcategory: '',
-        pprice: '',
-        pmrp: '',
-        pquantity: '',
-        pimg: ''
+        itemcode: '',
+        itemid: '',
+        itemname: '',
+        qty: '',
+        selling: '',
+        mrp: '',
+        discperc: '',
+        gstperc: '',
+        amount: '',
+        discamt: '',
+        gstamt: '',
+        netamt: '',
+        itemcategory:'',
+        itemimg: '',
     })
 
     const [data, setData] = useState([])
     const [search, setSearch] = useState('')
 
     useEffect(() => {
-        axios.get('https://ecomart-backend-2-h3fw.onrender.com/ecomart/getproddata')
+        axios
+            .get('https://ecomart-backend-2-h3fw.onrender.com/ecomart/getproddata')
             .then(res => setData(res.data))
             .catch(err => console.log(err))
     }, [])
@@ -55,37 +55,37 @@ export default function Admin() {
 
     function handleSubmit(e) {
         e.preventDefault()
-        axios.post('https://ecomart-backend-2-h3fw.onrender.com/ecomart/addproduct', proddata)
-            .then(() => {
-                alert("Product Added Successfully")
-                setProddata({
-                    pcode: '',
-                    pname: '',
-                    pcategory: '',
-                    pprice: '',
-                    pmrp: '',
-                    pquantity: '',
-                    pimg: ''
-                })
-            })
+
+        axios
+            .post('https://ecomart-backend-2-h3fw.onrender.com/ecomart/addpro', proddata)
+            .then(() => alert('Product Added Successfully'))
+
         setToggle(false)
+        setProddata({
+            itemcode: '',
+            itemid: '',
+            itemname: '',
+            qty: '',
+            selling: '',
+            mrp: '',
+            amount: '',
+            discperc: '',
+            gstamt: '',
+            discamt: '',
+            gstperc: '',
+            netamt: '',
+            itemcategory:'',
+            itemimg: ''
+        })
     }
 
     function cancel() {
         setToggle(false)
-        setProddata({
-            pcode: '',
-            pname: '',
-            pcategory: '',
-            pprice: '',
-            pmrp: '',
-            pquantity: '',
-            pimg: ''
-        })
     }
 
     function handleDelete(id) {
-        axios.delete(`https://ecomart-backend-2-h3fw.onrender.com/ecomart/delete/${id}`)
+        axios
+            .delete(`https://ecomart-backend-2-h3fw.onrender.com/ecomart/delete/${id}`)
             .then(() => alert('Product Deleted Successfully'))
     }
 
@@ -105,36 +105,130 @@ export default function Admin() {
                     </div>
 
                     <div className='adminform-container'>
-                        <button className='addprod-btn' onClick={handlePopup}>Add Product</button>
+                        <button className='addprod-btn' onClick={handlePopup}>
+                            Add Product
+                        </button>
 
                         {toggle ? (
                             <form onSubmit={handleSubmit} className='admin-form'>
 
-                                {/* NEW PRODUCT CODE INPUT – NO CLASS NAME */}
                                 <input
-                                    type="text"
-                                    placeholder="Bar Code"
-                                    id='admin-productcode'
-                                    name="pcode"
-                                    value={proddata.pcode}
+                                    type='number'
+                                    placeholder='Item Code'
+                                    name='itemcode'
+                                    id='itemcode'
+                                    value={proddata.itemcode}
                                     onChange={handleChange}
                                     required
-                                /><br />
+                                />
 
                                 <input
                                     type='text'
-                                    placeholder='Name of the Product'
-                                    id='admin-productname'
-                                    name='pname'
-                                    value={proddata.pname}
+                                    placeholder='Item ID (optional)'
+                                    name='itemid'
+                                    id='itemid'
+                                    value={proddata.itemid}
+                                    onChange={handleChange}
+                                />
+
+                                <input
+                                    type='text'
+                                    placeholder='Product Name'
+                                    name='itemname'
+                                    id='itemname'
+                                    value={proddata.itemname}
                                     onChange={handleChange}
                                     required
-                                /><br />
+                                />
+
+                                <input
+                                    type='text'
+                                    placeholder='Quantity'
+                                    name='qty'
+                                    id='itemqty'
+                                    value={proddata.qty}
+                                    onChange={handleChange}
+                                    required
+                                />
+
+                                <input
+                                    type='number'
+                                    placeholder='Selling Price'
+                                    name='selling'
+                                    id='itemselling'
+                                    value={proddata.selling}
+                                    onChange={handleChange}
+                                    required
+                                />
+
+                                <input
+                                    type='number'
+                                    placeholder='MRP'
+                                    name='mrp'
+                                    id='itemmrp'
+                                    value={proddata.mrp}
+                                    onChange={handleChange}
+                                    required
+                                />
+
+                                <input
+                                    type='number'
+                                    placeholder='Discount % (optional)'
+                                    name='discperc'
+                                    id='itemdiscperc'
+                                    value={proddata.discperc}
+                                    onChange={handleChange}
+                                />
+
+                                <input
+                                    type='number'
+                                    placeholder='GST %'
+                                    name='gstperc'
+                                    id='itemgstperc'
+                                    value={proddata.gstperc}
+                                    onChange={handleChange}
+                                />
+
+                                <input
+                                    type='number'
+                                    placeholder='Amount'
+                                    name='amount'
+                                    id='itemamount'
+                                    value={proddata.amount}
+                                    onChange={handleChange}
+                                />
+
+                                <input
+                                    type='number'
+                                    placeholder='Discount Amount (optional)'
+                                    name='discamt'
+                                    id='itemdiscamt'
+                                    value={proddata.discamt}
+                                    onChange={handleChange}
+                                />
+
+                                <input
+                                    type='number'
+                                    placeholder='GST Amount'
+                                    name='gstamt'
+                                    id='itemgstamt'
+                                    value={proddata.gstamt}
+                                    onChange={handleChange}
+                                />
+
+                                <input
+                                    type='number'
+                                    placeholder='Net Amount'
+                                    name='netamt'
+                                    id='itemneramt'
+                                    value={proddata.netamt}
+                                    onChange={handleChange}
+                                />
 
                                 <select
-                                    id='category'
-                                    name='pcategory'
-                                    value={proddata.pcategory}
+                                    id='itemcategory'
+                                    name='itemcategory'
+                                    value={proddata.itemcategory}
                                     onChange={handleChange}
                                     required
                                 >
@@ -143,58 +237,39 @@ export default function Admin() {
                                 </select><br />
 
                                 <input
-                                    type='number'
-                                    placeholder='Enter Product Price'
-                                    id='price'
-                                    name='pprice'
-                                    value={proddata.pprice}
-                                    onChange={handleChange}
-                                    required
-                                /><br />
-
-                                <input
-                                    type='number'
-                                    placeholder='Product MRP'
-                                    id='desc'
-                                    name='pmrp'
-                                    value={proddata.pmrp}
-                                    onChange={handleChange}
-                                    required
-                                /><br />
-
-                                <select
-                                    id='quantity'
-                                    name='pquantity'
-                                    value={proddata.pquantity}
-                                    onChange={handleChange}
-                                    required
-                                >
-                                    <option value=''>Select Quantity</option>
-                                    {quantity.map(x => <option value={x} key={x}>{x}</option>)}
-                                </select>
-
-                                <input
                                     type='text'
-                                    placeholder='Product Image'
-                                    id='prod-img'
-                                    name='pimg'
-                                    value={proddata.pimg}
+                                    placeholder='Item Image URL'
+                                    name='itemimg'
+                                    id='itemimg'
+                                    value={proddata.itemimg}
                                     onChange={handleChange}
                                     required
-                                /><br />
+                                />
 
                                 <div className='addprodform-btns'>
                                     <button type='submit' className='add'>Add</button>
-                                    <button type='button' className='cancel' onClick={cancel}>Cancel</button>
+                                    <button type='button' className='cancel' onClick={cancel}>
+                                        Cancel
+                                    </button>
                                 </div>
 
                             </form>
                         ) : (
                             <div className='adminmsg-container'>
                                 <h1 className='admin-title'>Welcome back, Admin!</h1>
-                                <h3 className='admin-msg'>Time to boost EcoMart with some amazing updates!</h3>
-                                <button className='view-orders' onClick={() => navigate('/adminorders')}>View Orders</button>
-                                <button className='post-offers' onClick={() => navigate('/adminoffers')}>Post Offers</button>
+                                <h3 className='admin-msg'>Time to boost EcoMart 🚀</h3>
+                                <button
+                                    className='view-orders'
+                                    onClick={() => navigate('/adminorders')}
+                                >
+                                    View Orders
+                                </button>
+                                <button
+                                    className='post-offers'
+                                    onClick={() => navigate('/adminoffers')}
+                                >
+                                    Post Offers
+                                </button>
                             </div>
                         )}
                     </div>
@@ -208,7 +283,7 @@ export default function Admin() {
                     <input
                         type='text'
                         className='admin-searchbar'
-                        placeholder='Search product name or category...'
+                        placeholder='Search...'
                         value={search}
                         onChange={(e) => setSearch(e.target.value.toLowerCase())}
                     />
@@ -218,46 +293,73 @@ export default function Admin() {
                             <tr>
                                 <th>Code</th>
                                 <th>Name</th>
-                                <th>Category</th>
-                                <th>Price</th>
+                                <th>Qty</th>
+                                <th>Selling</th>
                                 <th>MRP</th>
-                                <th>Quantity</th>
+                                <th>Net Amount</th>
                                 <th>Image</th>
-                                <th>Drop and Update</th>
+                                <th>Drop & Update</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             {Array.isArray(data) && data.map((category, key) => {
+
                                 const filteredProducts = category.products.filter(x =>
-                                    x.pname.toLowerCase().includes(search) ||
-                                    x.pcategory.toLowerCase().includes(search) ||
-                                    String(x.pcode).includes(search)
+                                    x.itemname?.toLowerCase().includes(search) ||
+                                    x.itemcategory?.toLowerCase().includes(search) ||
+                                    String(x.itemcode).includes(search)
                                 )
+
                                 if (filteredProducts.length === 0) return null
 
                                 return (
                                     <React.Fragment key={key}>
+
+                                        {/* CATEGORY HEADER ROW */}
                                         <tr>
-                                            <td colSpan="8" style={{ fontWeight: "bold", textAlign: "center" }}>
+                                            <td
+                                                colSpan="8"
+                                                style={{
+                                                    fontWeight: 'bold',
+                                                    textAlign: 'center',
+                                                    backgroundColor: '#0B9F51',
+                                                    color: 'white'
+                                                }}
+                                            >
                                                 {category._id}
                                             </td>
                                         </tr>
 
+                                        {/* PRODUCTS UNDER CATEGORY */}
                                         {filteredProducts.map((x, index) => (
                                             <tr key={index}>
-                                                <td>{x.pcode}</td>
-                                                <td>{x.pname}</td>
-                                                <td>{x.pcategory}</td>
-                                                <td>{x.pprice}</td>
-                                                <td>{x.pmrp}</td>
-                                                <td>{x.pquantity}</td>
+                                                <td>{x.itemcode}</td>
+                                                <td>{x.itemname}</td>
+                                                <td>{x.qty}</td>
+                                                <td>{x.selling}</td>
+                                                <td>{x.mrp}</td>
+                                                <td>{x.netamt}</td>
                                                 <td>
-                                                    <img src={x.pimg} className='admin-productimage' alt="Product" />
+                                                    <img
+                                                        src={x.itemimg}
+                                                        alt="Product"
+                                                        className='admin-productimage'
+                                                    />
                                                 </td>
                                                 <td>
-                                                    <button className='crud-btn' onClick={() => handleEdit(x)}>Update</button>
-                                                    <button className='crud-btn' onClick={() => handleDelete(x._id)}>Delete</button>
+                                                    <button
+                                                        className='crud-btn'
+                                                        onClick={() => handleEdit(x)}
+                                                    >
+                                                        Update
+                                                    </button>
+                                                    <button
+                                                        className='crud-btn'
+                                                        onClick={() => handleDelete(x._id)}
+                                                    >
+                                                        Delete
+                                                    </button>
                                                 </td>
                                             </tr>
                                         ))}
@@ -265,11 +367,17 @@ export default function Admin() {
                                 )
                             })}
                         </tbody>
+
                     </table>
                 </div>
             </div>
 
-            {updatepopup && <Productupdateform setUpdatepopup={setUpdatepopup} data={data} />}
+            {updatepopup && (
+                <Productupdateform
+                    setUpdatepopup={setUpdatepopup}
+                    data={data}
+                />
+            )}
         </div>
     )
 }

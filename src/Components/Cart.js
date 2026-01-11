@@ -10,7 +10,16 @@ export default function Cart() {
   const navigate = useNavigate();
   const { cart, addToCart, removeFromCart, clearCart } = useCart();
 
-  const totalPrice = cart.reduce((acc, item) => acc + item.pprice * item.quantity, 0);
+  const totalPrice = cart.reduce((acc, item) => acc + item.netamt * item.quantity, 0);
+
+  const totalGst = cart.reduce(
+  (acc, item) => acc + Number(item.gstamt) * item.quantity,
+  0
+  );
+
+  const grandTotal = totalPrice + totalGst+30;
+
+
 
   const [msg, setMsg] = useState('Your Cart is Empty');
   const [showQRPopup, setShowQRPopup] = useState(false);
@@ -69,7 +78,7 @@ export default function Cart() {
   // simple app-open helpers (open app scheme first, fallback to generic upi uri)
   const openGPay = () => {
     // opens Google Pay app if installed, otherwise fallback to UPI chooser
-    const upiFallback = `upi://pay?pa=ecomartsangai@okicici&pn=Eco Mart&am=${totalPrice}&cu=INR`; // blank pa/pn so it only opens chooser/app
+    const upiFallback = `upi://pay?pa=ecomartsangai@okicici&pn=Eco Mart&am=${grandTotal}&cu=INR`; // blank pa/pn so it only opens chooser/app
     const intent = `intent://pay?${upiFallback.split('?')[1]}#Intent;package=com.google.android.apps.nbu.paisa.user;scheme=upi;end`;
     window.location.href = intent;
     setTimeout(() => { window.location.href = upiFallback; }, 700);
@@ -77,7 +86,7 @@ export default function Cart() {
 
   const openPhonePe = () => {
     // opens PhonePe app if installed, otherwise fallback to UPI chooser
-    const upiFallback = `upi://pay?pa=ecomartsangai@okicici&pn=Eco Mart&am=${totalPrice}&cu=INR`;
+    const upiFallback = `upi://pay?pa=ecomartsangai@okicici&pn=Eco Mart&am=${grandTotal}&cu=INR`;
     const intent = `intent://pay?${upiFallback.split('?')[1]}#Intent;package=com.phonepe.app;scheme=upi;end`;
     window.location.href = intent;
     setTimeout(() => { window.location.href = upiFallback; }, 700);
@@ -91,60 +100,76 @@ export default function Cart() {
   };
 
   const handleOrder = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (!cart || cart.length === 0) {
-      alert("Your cart is empty.");
-      return;
-    }
+  if (!cart || cart.length === 0) {
+    alert("Your cart is empty.");
+    return;
+  }
 
-    if (!orderdata.name || !orderdata.mobile || !orderdata.address || !orderdata.city || !orderdata.paymentMode) {
-      alert("Please fill in all the required fields.");
-      return;
-    }
+  if (!orderdata.name || !orderdata.mobile || !orderdata.address || !orderdata.city || !orderdata.paymentMode) {
+    alert("Please fill in all the required fields.");
+    return;
+  }
 
-    const cityName = orderdata.city.trim().toLowerCase();
-    if (cityName !== 'sankarankovil' && cityName !== 'snkl' && cityName !== 'sangai' && totalPrice <= 1000) {
-      alert("Minimum order amount must be more than ₹1000 for your city.");
-      return;
-    }
+  if (orderdata.paymentMode === 'gpay' && !orderdata.paymentId) {
+    alert("Please enter the transaction ID for online payment.");
+    return;
+  }
 
-    const updatedOrder = {
-      name: orderdata.name,
-      mobile: orderdata.mobile,
-      address: orderdata.address,
-      city: orderdata.city,
-      paymentMode: orderdata.paymentMode,
-      paymentId: orderdata.paymentId || '',
-      items: cart.map(item => ({
-        pname: item.pname,
-        pprice: item.pprice,
-        quantity: item.quantity,
-        subtotal: item.pprice * item.quantity
-      })),
-      total: totalPrice
-    };
+  const cityName = orderdata.city.trim().toLowerCase();
+  if (
+    cityName !== 'sankarankovil' &&
+    cityName !== 'snkl' &&
+    cityName !== 'sangai' &&
+    totalPrice <= 1000
+  ) {
+    alert("Minimum order amount must be more than ₹1000 for your city.");
+    return;
+  }
 
-    console.log("Payload about to send:", updatedOrder);
+  // ✅ FIXED PAYLOAD (NEW SCHEMA)
+  const updatedOrder = {
+    name: orderdata.name,
+    mobile: orderdata.mobile,
+    address: orderdata.address,
+    city: orderdata.city,
+    paymentMode: orderdata.paymentMode,
+    paymentId: orderdata.paymentId || '',
 
-    try {
-      const res = await axios.post(
-        "https://ecomart-backend-2-h3fw.onrender.com/ecomart/order",
-        JSON.stringify(updatedOrder),
-        { headers: { 'Content-Type': 'application/json' } }
-      );
+    items: cart.map(item => ({
+      itemname: item.itemname,          // ✅ changed
+      price: Number(item.netamt),       // ✅ net amount
+      quantity: item.quantity,
+      subtotal: Number(item.netamt) * item.quantity
+    })),
 
-      console.log("Server response:", res.data);
-      alert("Order Placed Successfully!");
-      clearCart();
-      setMsg('Happy Shopping! Your Order is Placed 🌟');
-      localStorage.setItem("latestOrder", JSON.stringify(updatedOrder));
-      navigate('/ordersuccess');
-    } catch (error) {
-      console.error("Order Failed:", error.response?.data || error.message);
-      alert("Order Failed! Try Again.");
-    }
+    total: totalPrice,
+    gstTotal: totalGst,
+    grandTotal: grandTotal
   };
+
+  console.log("Payload about to send:", updatedOrder);
+
+  try {
+    const res = await axios.post(
+      "https://ecomart-backend-2-h3fw.onrender.com/ecomart/order",
+      updatedOrder,
+      { headers: { 'Content-Type': 'application/json' } }
+    );
+
+    alert("Order Placed Successfully!");
+    clearCart();
+    setMsg('Happy Shopping! Your Order is Placed 🌟');
+    localStorage.setItem("latestOrder", JSON.stringify(updatedOrder));
+    navigate('/ordersuccess');
+
+  } catch (error) {
+    // console.error("Order Failed:", error.response?.data || error.message);
+    alert("Order Failed! Try Again.");
+  }
+};
+
 
   return (
     <div className='cart'>
@@ -268,23 +293,24 @@ export default function Cart() {
             <div className="cart-items">
               {cart.map((item, index) => (
                 <div key={index} className="cart-item">
-                  <img src={item.pimg} className="cart-image" alt={item.pname} />
+                  <img src={item.itemimg} className="cart-image" alt={item.itemname} />
                   <div className="cart-item-details">
-                    <h3>{item.pname}</h3>
-                    <p>Price: Rs.{item.pprice}</p>
+                    <h3>{item.itemname}</h3>
+                    <p>Price: Rs.{item.netamt}</p>
                     <div className="quantity-container">
                       <button type="button" className="qty-btn" onClick={() => removeFromCart(item._id)}>-</button>
                       <span className="quantity">{item.quantity}</span>
                       <button type="button" className="qty-btn" onClick={() => addToCart(item)}>+</button>
                     </div>
-                    <p className="subtotal">Subtotal: Rs.{item.pprice * item.quantity}</p>
+                    <p className="subtotal">Subtotal: Rs.{item.netamt * item.quantity}</p>
                     <button type="button" className="remove-btn" onClick={() => removeFromCart(item._id, true)}>Remove</button>
                   </div>
                 </div>
               ))}
             </div>
 
-            <h2 className="total-price">Total Price: Rs.{totalPrice}</h2>
+            <h2 className="total-price">Total Price: Rs.{totalPrice} <span style={{color:'red'}}>+ GST</span></h2>
+            <label>Delivery Charge : Rs.30 (Also Included)</label><br/>
             <button type="submit" className='order-btn' onClick={() => window.open("https://wa.me/917200260036", "_blank")}>Whatsapp</button><br/>
             <label>Share the Payment Screenshort in Whatsappp Before Placing Order ☝️</label><br/>
             <button type="submit" className='order-btn'>Place An Order</button>

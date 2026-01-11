@@ -48,7 +48,6 @@
     text-align: start;
     color: white;
     text-shadow: 5px 5px 10px #333;
-    /* line-height: 50px; */
 }
 
 .adminform-container{
@@ -88,42 +87,69 @@
     background-color: red;
 }
 
+/* ===== DESIGN 2: CARD STYLE + SCROLL ===== */
+.adminform-container .admin-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    max-height: 320px;        /* controls visible height */
+    overflow-y: auto;         /* enables scrolling */
+    padding-right: 8px;       /* avoids scrollbar overlap */
+}
+
+.adminform-container .admin-form input {
+    width: calc(50% - 10px);   /* 2 per row */
+}
+
+#itemcode,#itemid,#itemname,#itemqty,#itemselling,
+#itemmrp,#itemdiscperc,#itemgstperc,#itemamount,
+#itemdiscamt,#itemgstamt,#itemneramt,#itemimg{
+    width: 390px;
+    height: 25px;
+    padding: 5px;
+    outline: none;
+    border: 1px solid #0B9F51;
+    border-radius: 5px;
+    font-family: "Poppins", serif;
+    margin-left: 25px;
+}
+
+#itemcategory{
+    width: 405px;
+    height: 35px;
+    padding: 5px;
+    outline: none;
+    border: 1px solid #0B9F51;
+    border-radius: 5px;
+    font-family: "Poppins", serif;
+    margin-left: 45px;
+}
+
+/* Image input full width */
+.adminform-container .admin-form input[name="itemimg"] {
+    width: 410px;
+}
+
+/* Buttons full row */
+.adminform-container .addprodform-btns {
+    width: 100%;
+    justify-content: center;
+}
+
+
+
 .admin-form{
     justify-content: center;
     align-items: center;
-    justify-content: center;
 }
 
-
-#admin-productname,#price,#desc,#prod-img,#admin-productcode{
-    height: 40px;
-    width: 400px;
-    outline: none;
-    border: solid 1px #0B9F51;
-    padding-left: 10px;
-    font-family: "Poppins", serif;
-    font-weight: bold;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-
-#category,#quantity{
-    height: 40px;
-    width: 410px;
-    outline: none;
-    border: solid 1px #0B9F51;
-    padding-left: 10px;
-    font-family: "Poppins", serif;
-    font-weight: bold;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
 
 .addprodform-btns{
     width: 415px;
     display: flex;
     justify-content: space-between;
-    margin-left: 90px;
+    margin-left: 10px;
 }
 
 .add{
@@ -137,10 +163,6 @@
     background-color: #0B9F51;
     color: white;
     cursor: pointer;
-}
-
-.add:hover{
-    background-color: #0B9F51;
 }
 
 .cancel{
@@ -157,9 +179,8 @@
     cursor: pointer;
 }
 
-.cancel:hover{
-    background-color: red;
-}
+/* ===== rest untouched ===== */
+
 
 
 .adminmsg-container{
@@ -236,11 +257,17 @@
 .admin-searchbar{
     margin-top: 15px;
     width: 800px;
-    height: 30px;
-    padding-left: 5px;
+    height: 25px;
+    padding: 5px;
     border-radius: 5px;
-    border: 1px solid #333;
+    outline: none;
+    border: 1px solid;
 }
+
+.admin-searchbar:focus{
+    border: 1px solid #0B9F51;
+}
+
 .admin-searchbar::placeholder{
     font-family: "Poppins", serif;
 }
