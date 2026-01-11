@@ -19,6 +19,12 @@ export default function Cart() {
 
   const grandTotal = totalPrice + totalGst+30;
 
+  const numberOfItems = cart.length;
+  const totalQuantity = cart.reduce(
+    (sum, item) => sum + item.quantity,
+    0
+  );
+
 
 
   const [msg, setMsg] = useState('Your Cart is Empty');
@@ -144,6 +150,8 @@ export default function Cart() {
       subtotal: Number(item.netamt) * item.quantity
     })),
 
+    numberOfItems:numberOfItems,
+    totalQuantity:totalQuantity,
     total: totalPrice,
     gstTotal: totalGst,
     grandTotal: grandTotal
@@ -158,10 +166,16 @@ export default function Cart() {
       { headers: { 'Content-Type': 'application/json' } }
     );
 
+    const billNumber = res.data.billNumber;
+    const orderWithBill = {
+      ...updatedOrder,
+      billNumber
+    };
+
     alert("Order Placed Successfully!");
     clearCart();
     setMsg('Happy Shopping! Your Order is Placed 🌟');
-    localStorage.setItem("latestOrder", JSON.stringify(updatedOrder));
+    localStorage.setItem("latestOrder", JSON.stringify(orderWithBill));
     navigate('/ordersuccess');
 
   } catch (error) {

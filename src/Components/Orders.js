@@ -50,6 +50,7 @@ export default function AdminOrders() {
 
                             <table className='users-detailable'>
                                 <tbody>
+                                    <tr><td><strong>Bill Number:</strong></td><td>{order.billNumber}</td></tr>
                                     <tr><td><strong>Name:</strong></td><td>{order.name}</td></tr>
                                     <tr><td><strong>Mobile:</strong></td><td>{order.mobile}</td></tr>
                                     <tr><td><strong>Address:</strong></td><td>{order.address}</td></tr>

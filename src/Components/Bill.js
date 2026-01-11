@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import jsPDF from 'jspdf';
+import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { useNavigate } from 'react-router-dom';
 import './Bill.css';
@@ -30,7 +30,6 @@ export default function Bill() {
     /* ================= GST / CONTACT ================= */
     doc.setFontSize(10);
     doc.setFont('helvetica', 'normal');
-
     doc.text('GST No : 33AALFE9646F1Z8', 14, 26);
     doc.text('FSSAI License No : 12425026000375', 105, 26, { align: 'center' });
     doc.text('Contact : +91 7200260036', 196, 26, { align: 'right' });
@@ -39,7 +38,10 @@ export default function Bill() {
     doc.setFontSize(12);
     const infoY = 36;
 
-    doc.text(`Customer : ${order.name}`, 14, infoY);
+    // 🔥 BILL NUMBER
+    doc.text(`Bill No  : ${order.billNumber}`, 14, infoY - 4);
+
+    doc.text(`Customer : ${order.name}`, 14, infoY+1);
     doc.text(`Mobile   : ${order.mobile}`, 14, infoY + 7);
     doc.text(
       `Address  : ${sanitizeText(order.address)}`,
@@ -50,10 +52,17 @@ export default function Bill() {
     doc.text(`City     : ${order.city}`, 14, infoY + 26);
     doc.text(`Date     : ${new Date().toLocaleString()}`, 14, infoY + 33);
 
+    /* ================= ITEM COUNTS ================= */
+    const totalItems = order.numberOfItems || order.items.length;
+    const totalQuantity =
+      order.totalQuantity ||
+      order.items.reduce((sum, item) => sum + item.quantity, 0);
+
     /* ================= TABLE DATA ================= */
     const tableColumn = ['Product', 'Price', 'Qty', 'Subtotal'];
     const tableRows = [];
 
+    // Product rows
     order.items.forEach(item => {
       tableRows.push([
         item.itemname,
@@ -62,6 +71,19 @@ export default function Bill() {
         `Rs. ${item.subtotal}`
       ]);
     });
+
+    // 🔥 ITEMS + QTY (CENTER, FULL WIDTH)
+    tableRows.push([
+      {
+        content: `Item : ${totalItems} | Qty : ${totalQuantity}`,
+        colSpan: 4,
+        styles: {
+          halign: 'center',
+          fontStyle: 'bold',
+          fontSize: 12
+        }
+      }
+    ]);
 
     /* ================= TOTALS ================= */
     tableRows.push(['', '', 'Net Total', `Rs. ${order.total}`]);
@@ -93,7 +115,7 @@ export default function Bill() {
         3: { halign: 'right' }
       },
       didParseCell: function (data) {
-        // Make Grand Total bold
+        // Bold Grand Total
         if (data.row.index === tableRows.length - 1) {
           data.cell.styles.fontStyle = 'bold';
           data.cell.styles.fontSize = 12;
@@ -112,8 +134,8 @@ export default function Bill() {
     );
 
     /* ================= SAVE ================= */
-    doc.save('EcoMart-Bill.pdf');
-    navigate('/');
+    doc.save(`EcoMart-Bill-EM-${order.billNumber}.pdf`);
+    navigate('/products');
   }, [navigate]);
 
   return <p className="bill-message">Generating your bill...</p>;
