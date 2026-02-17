@@ -90,7 +90,7 @@ export default function Products() {
                                                 <h3>{product.itemname}</h3>
 
                                                 <p className='price'>
-                                                    Rs. {product.netamt}
+                                                    Rs. {product.selling}
                                                     <span className='mrp'>
                                                         MRP: Rs. {product.mrp}
                                                     </span>
