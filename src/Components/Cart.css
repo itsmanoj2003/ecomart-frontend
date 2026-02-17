@@ -201,7 +201,7 @@
         margin-top: 0px;
     }
 
-    .cartform-name,.cart-mobilenumber,.cart-address,.cart-city{
+    .cartform-name,.cart-mobilenumber,.cart-address,.cart-city,.cart-paymentid{
         width: 330px;
     }
 
@@ -456,7 +456,7 @@
         overflow: hidden;
     }
 
-    .cartform-name,.cart-mobilenumber,.cart-address,.cart-city{
+    .cartform-name,.cart-mobilenumber,.cart-address,.cart-city,.cart-paymentid{
         width: 300px;
     }
 
