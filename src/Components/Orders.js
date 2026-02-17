@@ -56,6 +56,7 @@ export default function AdminOrders() {
                                     <tr><td><strong>Address:</strong></td><td>{order.address}</td></tr>
                                     <tr><td><strong>City:</strong></td><td>{order.city}</td></tr>
                                     <tr><td><strong>Payment Mode:</strong></td><td>{order.paymentMode}</td></tr>
+                                    {order.paymentMode == 'gpay' ? <tr><td><strong>Transaction Id:</strong></td><td>{order.paymentId}</td></tr>:''}
                                     <tr><td><strong>Order Time:</strong></td><td>{new Date(order.date).toLocaleString()}</td></tr>
                                     <tr>
                                         <td><strong>Status:</strong></td>

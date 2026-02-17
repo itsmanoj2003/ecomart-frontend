@@ -35,7 +35,7 @@
     color: #888;
 }
 
-.cartform-name,.cart-mobilenumber,.cart-city{
+.cartform-name,.cart-mobilenumber,.cart-city,.cart-paymentid{
     height: 40px;
     width: 400px;
     outline: none;

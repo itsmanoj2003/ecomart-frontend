@@ -50,7 +50,8 @@ export default function Bill() {
       { maxWidth: 180 }
     );
     doc.text(`City     : ${order.city}`, 14, infoY + 26);
-    doc.text(`Date     : ${new Date().toLocaleString()}`, 14, infoY + 33);
+    doc.text(`Payment Id     : ${order.paymentId || 'Null'} `, 14, infoY + 33);
+    doc.text(`Date     : ${new Date().toLocaleString()}`, 14, infoY + 40);
 
     /* ================= ITEM COUNTS ================= */
     const totalItems = order.numberOfItems || order.items.length;
