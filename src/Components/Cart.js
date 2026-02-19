@@ -91,7 +91,6 @@ export default function Cart() {
 
   const openGPay = () => {
     const upiFallback = `upi://pay?pa=ecomartsangai@okicici&pn=Eco Mart&am=${grandTotal}&cu=INR`;
-
     const intent =
       `intent://pay?${upiFallback.split('?')[1]}#Intent;package=com.google.android.apps.nbu.paisa.user;scheme=upi;end`;
 
@@ -104,7 +103,6 @@ export default function Cart() {
 
   const openPhonePe = () => {
     const upiFallback = `upi://pay?pa=ecomartsangai@okicici&pn=Eco Mart&am=${grandTotal}&cu=INR`;
-
     const intent =
       `intent://pay?${upiFallback.split('?')[1]}#Intent;package=com.phonepe.app;scheme=upi;end`;
 
@@ -131,8 +129,7 @@ export default function Cart() {
       !orderdata.name ||
       !orderdata.mobile ||
       !orderdata.address ||
-      !orderdata.city ||
-      !orderdata.paymentMode
+      !orderdata.city
     ) {
       alert("Please fill in all the required fields.");
       return;
@@ -168,11 +165,11 @@ export default function Cart() {
         quantity: item.quantity,
         subtotal: Number(item.selling) * item.quantity
       })),
-      numberOfItems: numberOfItems,
-      totalQuantity: totalQuantity,
+      numberOfItems,
+      totalQuantity,
       total: totalPrice,
       gstTotal: totalGst,
-      grandTotal: grandTotal
+      grandTotal
     };
 
     try {
@@ -184,20 +181,14 @@ export default function Cart() {
 
       const billNumber = res.data.billNumber;
 
-      const orderWithBill = {
-        ...updatedOrder,
-        billNumber
-      };
+      const orderWithBill = { ...updatedOrder, billNumber };
 
       alert("Order Placed Successfully!");
 
       clearCart();
       setMsg('Happy Shopping! Your Order is Placed 🌟');
 
-      localStorage.setItem(
-        "latestOrder",
-        JSON.stringify(orderWithBill)
-      );
+      localStorage.setItem("latestOrder", JSON.stringify(orderWithBill));
 
       navigate('/ordersuccess');
 
@@ -223,35 +214,55 @@ export default function Cart() {
         ) : (
           <form className='cart-form' onSubmit={handleOrder}>
 
-            <input type='text' name="name" placeholder='Enter Your Name'
-              className='cartform-name' onChange={handleChange}
-              value={orderdata.name} required /><br />
+            <input type='text' name="name"
+              placeholder='Enter Your Name'
+              className='cartform-name'
+              onChange={handleChange}
+              value={orderdata.name}
+              required /><br />
 
-            <input type='tel' name="mobile" placeholder='Enter Your Mobile Number'
-              className='cart-mobilenumber' onChange={handleChange}
-              value={orderdata.mobile} required /><br />
+            <input type='tel' name="mobile"
+              placeholder='Enter Your Mobile Number'
+              className='cart-mobilenumber'
+              onChange={handleChange}
+              value={orderdata.mobile}
+              required /><br />
 
-            <textarea name="address" placeholder="Enter Your Address & Town Name"
-              className="cart-address" onChange={handleChange}
-              value={orderdata.address} required rows={3}></textarea><br />
+            <textarea name="address"
+              placeholder="Enter Your Address & Town Name"
+              className="cart-address"
+              onChange={handleChange}
+              value={orderdata.address}
+              required
+              rows={3}></textarea><br />
 
-            <input type='text' name="city" placeholder='Enter Your Town'
-              className='cart-city' onChange={handleChange}
-              value={orderdata.city} required /><br />
+            <input type='text' name="city"
+              placeholder='Enter Your Town'
+              className='cart-city'
+              onChange={handleChange}
+              value={orderdata.city}
+              required /><br />
 
-            <button type="button" className="get-location-btn"
-              onClick={handleLocation}>🎯 Use My Location</button><br />
+            <button type="button"
+              className="get-location-btn"
+              onClick={handleLocation}>
+              🎯 Use My Location
+            </button><br />
 
             <div className="payment-mode-section">
               <label>
-                <input type="radio" name="paymentMode" value="cod"
+                <input type="radio"
+                  name="paymentMode"
+                  value="cod"
                   checked={orderdata.paymentMode === 'cod'}
                   onChange={handleChange} />
                 Cash on Delivery
               </label>
 
               <label style={{ marginLeft: '20px' }}>
-                <input type="radio" name="paymentMode" value="gpay"
+                <input type="radio"
+                  name="paymentMode"
+                  value="gpay"
                   checked={orderdata.paymentMode === 'gpay'}
                   onChange={handleChange} />
                 Online Payment (GPay)
@@ -271,21 +282,60 @@ export default function Cart() {
               </>
             )}
 
+            {showQRPopup && (
+              <div className="qr-popup">
+                <div className="qr-popup-content">
+                  <button className="close-popup"
+                    type="button"
+                    onClick={closePopup}>✕</button>
+
+                  <h3 className="qr-title">Scan to Pay / Open App</h3>
+
+                  <img src={gpayqr}
+                    alt="GPay QR"
+                    className="qr-image-large" />
+
+                  <div className="upi-buttons">
+                    <button type="button"
+                      className="upi-btn gpay"
+                      onClick={openGPay}>
+                      Open GPay
+                    </button>
+
+                    <button type="button"
+                      className="upi-btn phonepe"
+                      onClick={openPhonePe}>
+                      Open PhonePe
+                    </button>
+                  </div>
+
+                  <p className="qr-note">
+                    If payment app doesn't open, scan the QR or use your UPI app to pay manually.
+                  </p>
+                </div>
+              </div>
+            )}
+
             <div className="cart-items">
               {cart.map((item, index) => (
                 <div key={index} className="cart-item">
-                  <img src={item.itemimg} className="cart-image" alt={item.itemname} />
+                  <img src={item.itemimg}
+                    className="cart-image"
+                    alt={item.itemname} />
+
                   <div className="cart-item-details">
                     <h3>{item.itemname}</h3>
                     <p>Price: Rs.{item.selling}</p>
 
                     <div className="quantity-container">
-                      <button type="button" className="qty-btn"
+                      <button type="button"
+                        className="qty-btn"
                         onClick={() => removeFromCart(item._id)}>-</button>
 
                       <span className="quantity">{item.quantity}</span>
 
-                      <button type="button" className="qty-btn"
+                      <button type="button"
+                        className="qty-btn"
                         onClick={() => addToCart(item)}>+</button>
                     </div>
 
@@ -293,8 +343,11 @@ export default function Cart() {
                       Subtotal: Rs.{item.selling * item.quantity}
                     </p>
 
-                    <button type="button" className="remove-btn"
-                      onClick={() => removeFromCart(item._id, true)}>Remove</button>
+                    <button type="button"
+                      className="remove-btn"
+                      onClick={() => removeFromCart(item._id, true)}>
+                      Remove
+                    </button>
                   </div>
                 </div>
               ))}
@@ -307,7 +360,8 @@ export default function Cart() {
 
             <label>Delivery Charge : Rs.30 (Also Included)</label><br />
 
-            <button type="submit" className='order-btn'
+            <button type="submit"
+              className='order-btn'
               onClick={() => window.open("https://wa.me/917200260036", "_blank")}>
               Whatsapp
             </button><br />
@@ -316,7 +370,8 @@ export default function Cart() {
               Share the Payment Screenshort in Whatsappp Before Placing Order ☝️
             </label><br />
 
-            <button type="submit" className='order-btn'>
+            <button type="submit"
+              className='order-btn'>
               Place An Order
             </button>
 
