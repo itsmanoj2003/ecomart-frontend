@@ -9,15 +9,22 @@ export default function Products() {
 
     const [data, setData] = useState([])
     const [searchQuery, setSearchQuery] = useState('')
+    const [page, setPage] = useState(1)
 
     const { addToCart } = useCart()
 
     useEffect(() => {
         axios
-            .get('https://api.ecomartsangai.in/ecomart/getproddata')
-            .then(res => setData(res.data))
+            .get(`http://localhost:3001/ecomart/getproddata?page=${page}&search=${searchQuery}`)
+            .then(res => {
+                if (page === 1) {
+                    setData(res.data)
+                } else {
+                    setData(prev => [...prev, ...res.data])
+                }
+            })
             .catch(err => console.log(err))
-    }, [])
+    }, [page, searchQuery])
 
     /* ================= FILTER DATA ================= */
     const filteredData = data
@@ -56,7 +63,10 @@ export default function Products() {
                     placeholder='Search products...'
                     className='search-field'
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={(e) => {
+                        setPage(1)
+                        setSearchQuery(e.target.value)
+                    }}
                 />
             </div>
 
@@ -69,10 +79,8 @@ export default function Products() {
 
                             <div key={key} className='category-section'>
 
-                                {/* CATEGORY TITLE */}
                                 <h2 className='category-heading'>{category._id}</h2>
 
-                                {/* PRODUCTS GRID */}
                                 <div className='product-grid'>
                                     {category.products.map((product, index) => (
 
@@ -83,6 +91,7 @@ export default function Products() {
                                                     src={product.itemimg}
                                                     alt={product.itemname}
                                                     className='product-image'
+                                                    loading="lazy"
                                                 />
                                             </div>
 
@@ -123,14 +132,23 @@ export default function Products() {
                 </div>
             </div>
 
+            {/* ===== LOAD MORE BUTTON ===== */}
+            <div style={{ textAlign: 'center', margin: '20px' }}>
+                <button
+                    onClick={() => setPage(prev => prev + 1)}
+                    className="add-cart-btn"
+                >
+                    Load More
+                </button>
+            </div>
+
             {/* ===== FLOATING CART BUTTON ===== */}
             <button
-            className="floating-cart-btn"
-            onClick={() => window.location.href = '/cart'}
+                className="floating-cart-btn"
+                onClick={() => window.location.href = '/cart'}
             >
-            🛒 Cart
+                🛒 Cart
             </button>
-
 
         </div>
     )
