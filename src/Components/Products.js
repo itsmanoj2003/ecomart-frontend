@@ -118,13 +118,13 @@ export default function Products() {
                                                     <h3>{product.itemname}</h3>
 
                                                     <p className='price'>
-                                                        Rs. {product.selling}
+                                                        Rs. {product.selling}<br/>
                                                         <span className='mrp'>
                                                             MRP: Rs. {product.mrp}
                                                         </span>
                                                     </p>
 
-                                                    <p>Qty: {product.qty}</p>
+                                                    {/* <p>Qty: {product.qty}</p> */}
                                                 </div>
 
                                                 <button
