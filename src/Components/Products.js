@@ -13,30 +13,46 @@ export default function Products() {
 
     const { addToCart } = useCart()
 
+    /* ================= API CALL ================= */
     useEffect(() => {
-        axios
-            .get(`https://api.ecomartsangai.in/ecomart/getproddata?page=${page}&search=${searchQuery}`)
-            .then(res => {
+
+        const fetchProducts = async () => {
+            try {
+                const res = await axios.get(
+                    `https://api.ecomartsangai.in/ecomart/getproddata?page=${page}&search=${searchQuery}`
+                )
+
                 if (page === 1) {
                     setData(res.data)
                 } else {
-                    setData(prev => [...prev, ...res.data])
-                }
-            })
-            .catch(err => console.log(err))
-    }, [page, searchQuery])
+                    setData(prev => {
+                        const merged = [...prev]
 
-    /* ================= FILTER DATA ================= */
-    const filteredData = data
-        .filter(category => category._id !== 'Out of Stock')
-        .map(category => ({
-            ...category,
-            products: category.products.filter(product =>
-                product.itemname.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                product.itemcategory.toLowerCase().includes(searchQuery.toLowerCase())
-            )
-        }))
-        .filter(category => category.products.length > 0)
+                        res.data.forEach(newCategory => {
+                            const existing = merged.find(cat => cat._id === newCategory._id)
+
+                            if (existing) {
+                                existing.products = [
+                                    ...existing.products,
+                                    ...newCategory.products
+                                ]
+                            } else {
+                                merged.push(newCategory)
+                            }
+                        })
+
+                        return merged
+                    })
+                }
+
+            } catch (err) {
+                console.log(err)
+            }
+        }
+
+        fetchProducts()
+
+    }, [page, searchQuery])
 
     return (
         <div className='products'>
@@ -65,6 +81,7 @@ export default function Products() {
                     value={searchQuery}
                     onChange={(e) => {
                         setPage(1)
+                        setData([])
                         setSearchQuery(e.target.value)
                     }}
                 />
@@ -74,57 +91,59 @@ export default function Products() {
             <div className='product-menu'>
                 <div className='product-wrapper'>
 
-                    {filteredData.length > 0 ? (
-                        filteredData.map((category, key) => (
+                    {data.length > 0 ? (
+                        data
+                            .filter(category => category._id !== 'Out of Stock')
+                            .map((category, key) => (
 
-                            <div key={key} className='category-section'>
+                                <div key={key} className='category-section'>
 
-                                <h2 className='category-heading'>{category._id}</h2>
+                                    <h2 className='category-heading'>{category._id}</h2>
 
-                                <div className='product-grid'>
-                                    {category.products.map((product, index) => (
+                                    <div className='product-grid'>
+                                        {category.products.slice(0, 10).map((product, index) => (
 
-                                        <div key={index} className='product-card'>
+                                            <div key={index} className='product-card'>
 
-                                            <div className='product-image-wrapper'>
-                                                <img
-                                                    src={product.itemimg}
-                                                    alt={product.itemname}
-                                                    className='product-image'
-                                                    loading="lazy"
-                                                />
+                                                <div className='product-image-wrapper'>
+                                                    <img
+                                                        src={product.itemimg}
+                                                        alt={product.itemname}
+                                                        className='product-image'
+                                                        loading="lazy"
+                                                    />
+                                                </div>
+
+                                                <div className='product-details'>
+                                                    <h3>{product.itemname}</h3>
+
+                                                    <p className='price'>
+                                                        Rs. {product.selling}
+                                                        <span className='mrp'>
+                                                            MRP: Rs. {product.mrp}
+                                                        </span>
+                                                    </p>
+
+                                                    <p>Qty: {product.qty}</p>
+                                                </div>
+
+                                                <button
+                                                    className='add-cart-btn'
+                                                    onClick={() =>
+                                                        addToCart({
+                                                            ...product,
+                                                            price: product.netamt
+                                                        })
+                                                    }
+                                                >
+                                                    Add to Cart
+                                                </button>
+
                                             </div>
-
-                                            <div className='product-details'>
-                                                <h3>{product.itemname}</h3>
-
-                                                <p className='price'>
-                                                    Rs. {product.selling}
-                                                    <span className='mrp'>
-                                                        MRP: Rs. {product.mrp}
-                                                    </span>
-                                                </p>
-
-                                                <p>Qty: {product.qty}</p>
-                                            </div>
-
-                                            <button
-                                                className='add-cart-btn'
-                                                onClick={() =>
-                                                    addToCart({
-                                                        ...product,
-                                                        price: product.netamt
-                                                    })
-                                                }
-                                            >
-                                                Add to Cart
-                                            </button>
-
-                                        </div>
-                                    ))}
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                        ))
+                            ))
                     ) : (
                         <h3 className='no-products'>Loading...</h3>
                     )}
