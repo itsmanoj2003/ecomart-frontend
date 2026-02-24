@@ -15,7 +15,7 @@ export default function Products() {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:3001/ecomart/getproddata?page=${page}&search=${searchQuery}`)
+            .get(`https://api.ecomartsangai.in/ecomart/getproddata?page=${page}&search=${searchQuery}`)
             .then(res => {
                 if (page === 1) {
                     setData(res.data)
