@@ -8,7 +8,7 @@ export default function AdminOrders() {
     const [orders, setOrders] = useState([]);
 
     const fetchOrders = () => {
-        axios.get('http://76.13.214.12:3001/ecomart/getorders')
+        axios.get('https://api.ecomartsangai.in/ecomart/getorders')
             .then(res => setOrders(res.data))
             .catch(err => console.log(err));
     };
@@ -18,7 +18,7 @@ export default function AdminOrders() {
     }, []);
 
     const handleDelete = (id) => {
-        axios.delete(`http://76.13.214.12:3001/ecomart/deleteorder/${id}`)
+        axios.delete(`https://api.ecomartsangai.in/ecomart/deleteorder/${id}`)
             .then(() => {
                 alert('Order deleted successfully');
                 fetchOrders();

@@ -21,7 +21,7 @@ export default function Navbar() {
 
   const [hasOffers, setHasOffers] = useState(false);
   useEffect(() => {
-  axios.get("http://76.13.214.12:3001/ecomart/getoffers")
+  axios.get("https://api.ecomartsangai.in/ecomart/getoffers")
     .then(res => {
       if (res.data && res.data.length > 0) {
         setHasOffers(true);

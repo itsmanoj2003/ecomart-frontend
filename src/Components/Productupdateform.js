@@ -42,7 +42,7 @@ export default function Productupdateform({ setUpdatepopup, data }) {
         e.preventDefault()
 
         axios
-            .put(`http://76.13.214.12:3001/ecomart/updateproddata/${data._id}`, updatedata)
+            .put(`https://api.ecomartsangai.in/ecomart/updateproddata/${data._id}`, updatedata)
             .then(() => {
                 alert('Product Updated Successfully')
                 setUpdatepopup(false)

@@ -10,7 +10,7 @@ export default function Deliveryboy() {
 
   useEffect(() => {
     axios
-      .get('http://76.13.214.12:3001/ecomart/getorders')
+      .get('https://api.ecomartsangai.in/ecomart/getorders')
       .then((res) => setOrders(res.data))
       .catch((err) => console.log(err));
   }, []);
@@ -27,7 +27,7 @@ export default function Deliveryboy() {
     }
 
     axios
-      .put(`http://76.13.214.12:3001/ecomart/mark-delivered/${selectedOrderId}`, {
+      .put(`https://api.ecomartsangai.in/ecomart/mark-delivered/${selectedOrderId}`, {
         deliveredBy: deliveryBoyName,
       })
       .then(() => {

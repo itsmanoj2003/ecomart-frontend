@@ -11,7 +11,7 @@ export default function Offers() {
 
   useEffect(() => {
     axios
-      .get("http://76.13.214.12:3001/ecomart/getoffers")
+      .get("https://api.ecomartsangai.in/ecomart/getoffers")
       .then((res) => {
         setOffers(res.data);
         confetti({

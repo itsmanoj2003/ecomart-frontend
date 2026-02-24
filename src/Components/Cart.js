@@ -174,7 +174,7 @@ export default function Cart() {
 
     try {
       const res = await axios.post(
-        "http://76.13.214.12:3001/ecomart/order",
+        "https://api.ecomartsangai.in/ecomart/order",
         updatedOrder,
         { headers: { 'Content-Type': 'application/json' } }
       );

@@ -31,7 +31,7 @@ export default function AdminOffers() {
 
   const fetchOffers = async () => {
     try {
-      const res = await axios.get('http://76.13.214.12:3001/ecomart/getoffers');
+      const res = await axios.get('https://api.ecomartsangai.in/ecomart/getoffers');
       setOffers(res.data || []);
     } catch (err) {
       console.error("Failed to fetch offers", err);
@@ -76,12 +76,12 @@ export default function AdminOffers() {
 
       if (editingId) {
         // update existing offer
-        await axios.put(`http://76.13.214.12:3001/ecomart/updateoffer/${editingId}`, formData);
+        await axios.put(`https://api.ecomartsangai.in/ecomart/updateoffer/${editingId}`, formData);
         alert("Offer Updated Successfully");
         setEditingId(null);
       } else {
         // create new offer
-        await axios.post('http://76.13.214.12:3001/ecomart/postoffers', formData);
+        await axios.post('https://api.ecomartsangai.in/ecomart/postoffers', formData);
         alert("Offer Posted Successfully");
       }
 
@@ -105,7 +105,7 @@ export default function AdminOffers() {
   // delete offer
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://76.13.214.12:3001/ecomart/deleteoffer/${id}`);
+      await axios.delete(`https://api.ecomartsangai.in/ecomart/deleteoffer/${id}`);
       alert("Offer Deleted Successfully");
       setOffers(prev => prev.filter(offer => offer._id !== id));
       if (selectedOffer && selectedOffer._id === id) setSelectedOffer(null);

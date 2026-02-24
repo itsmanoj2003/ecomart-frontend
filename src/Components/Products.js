@@ -14,7 +14,7 @@ export default function Products() {
 
     useEffect(() => {
         axios
-            .get('http://76.13.214.12:3001/ecomart/getproddata')
+            .get('https://api.ecomartsangai.in/ecomart/getproddata')
             .then(res => setData(res.data))
             .catch(err => console.log(err))
     }, [])

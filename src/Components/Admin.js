@@ -40,7 +40,7 @@ export default function Admin() {
 
     useEffect(() => {
         axios
-            .get('http://76.13.214.12:3001/ecomart/getproddata')
+            .get('https://api.ecomartsangai.in/ecomart/getproddata')
             .then(res => setData(res.data))
             .catch(err => console.log(err))
     }, [])
@@ -57,7 +57,7 @@ export default function Admin() {
         e.preventDefault()
 
         axios
-            .post('http://76.13.214.12:3001/ecomart/addpro', proddata)
+            .post('https://api.ecomartsangai.in/ecomart/addpro', proddata)
             .then(() => alert('Product Added Successfully'))
 
         setToggle(false)
@@ -85,7 +85,7 @@ export default function Admin() {
 
     function handleDelete(id) {
         axios
-            .delete(`http://76.13.214.12:3001/ecomart/delete/${id}`)
+            .delete(`https://api.ecomartsangai.in/ecomart/delete/${id}`)
             .then(() => alert('Product Deleted Successfully'))
     }
 
