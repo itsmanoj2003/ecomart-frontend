@@ -14,7 +14,7 @@ export default function Products() {
 
     useEffect(() => {
         axios
-            .get('https://ecomart-backend-2-h3fw.onrender.com/ecomart/getproddata')
+            .get('http://76.13.214.12:3001/ecomart/getproddata')
             .then(res => setData(res.data))
             .catch(err => console.log(err))
     }, [])

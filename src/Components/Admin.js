@@ -40,7 +40,7 @@ export default function Admin() {
 
     useEffect(() => {
         axios
-            .get('https://ecomart-backend-2-h3fw.onrender.com/ecomart/getproddata')
+            .get('http://76.13.214.12:3001/ecomart/getproddata')
             .then(res => setData(res.data))
             .catch(err => console.log(err))
     }, [])
@@ -57,7 +57,7 @@ export default function Admin() {
         e.preventDefault()
 
         axios
-            .post('https://ecomart-backend-2-h3fw.onrender.com/ecomart/addpro', proddata)
+            .post('http://76.13.214.12:3001/ecomart/addpro', proddata)
             .then(() => alert('Product Added Successfully'))
 
         setToggle(false)
@@ -85,7 +85,7 @@ export default function Admin() {
 
     function handleDelete(id) {
         axios
-            .delete(`https://ecomart-backend-2-h3fw.onrender.com/ecomart/delete/${id}`)
+            .delete(`http://76.13.214.12:3001/ecomart/delete/${id}`)
             .then(() => alert('Product Deleted Successfully'))
     }
 
