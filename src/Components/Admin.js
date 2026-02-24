@@ -10,13 +10,7 @@ export default function Admin() {
 
     const [toggle, setToggle] = useState(false)
     const [updatepopup, setUpdatepopup] = useState(false)
-
-
-    const [list] = useState([
-        'Dry Products', 'Sauces', 'Snacks', "Women's beauty", 'Men\'s beauty', 'Health care',
-        'Dairy Products', 'Cleaning Agents', 'Devotional products', 'Baby products',
-        'Toys and gifts', 'Home Hold', 'Oil Products', 'Juices & Beverages', 'Vegetables', 'Jam',  'Out of Stock'
-    ])
+    const [page, setPage] = useState(1)
 
     const [proddata, setProddata] = useState({
         itemcode: '',
@@ -38,12 +32,34 @@ export default function Admin() {
     const [data, setData] = useState([])
     const [search, setSearch] = useState('')
 
+    const [list] = useState([
+    'Dry Products', 'Sauces', 'Snacks', "Women's beauty", 'Men\'s beauty', 'Health care',
+    'Dairy Products', 'Cleaning Agents', 'Devotional products', 'Baby products',
+    'Toys and gifts', 'Home Hold', 'Oil Products', 'Juices & Beverages',
+    'Vegetables', 'Jam', 'Out of Stock'
+    ])
+
+    /* 🔥 USE OPTIMIZED getproddata ROUTE */
     useEffect(() => {
-        axios
-            .get('https://api.ecomartsangai.in/ecomart/getproddata')
-            .then(res => setData(res.data))
-            .catch(err => console.log(err))
-    }, [])
+
+        const delay = setTimeout(() => {
+
+            axios
+                .get(`https://api.ecomartsangai.in/ecomart/getproddata?page=${page}&search=${search}`)
+                .then(res => {
+                    if (page === 1) {
+                        setData(res.data)
+                    } else {
+                        setData(prev => [...prev, ...res.data])
+                    }
+                })
+                .catch(err => console.log(err))
+
+        }, 400) // debounce search
+
+        return () => clearTimeout(delay)
+
+    }, [page, search])
 
     function handlePopup() {
         setToggle(true)
@@ -58,46 +74,35 @@ export default function Admin() {
 
         axios
             .post('https://api.ecomartsangai.in/ecomart/addpro', proddata)
-            .then(() => alert('Product Added Successfully'))
+            .then(() => {
+                alert('Product Added Successfully')
+                setPage(1) // refresh from start
+            })
 
         setToggle(false)
-        setProddata({
-            itemcode: '',
-            itemid: '',
-            itemname: '',
-            qty: '',
-            selling: '',
-            mrp: '',
-            amount: '',
-            discperc: '',
-            gstamt: '',
-            discamt: '',
-            gstperc: '',
-            netamt: '',
-            itemcategory:'',
-            itemimg: ''
-        })
     }
 
     function cancel() {
-        setToggle(false)
+    setToggle(false)
     }
 
     function handleDelete(id) {
         axios
             .delete(`https://api.ecomartsangai.in/ecomart/delete/${id}`)
-            .then(() => alert('Product Deleted Successfully'))
+            .then(() => {
+                setPage(1) // reload first page
+            })
     }
 
     function handleEdit(product) {
-        setData(product)
+        setProddata(product)
         setUpdatepopup(true)
     }
 
     return (
         <div className='admin'>
 
-            <div className='admin-main'>
+               <div className='admin-main'>
                 <div className='admin-top'>
                     <div className='admintitle-container'>
                         <h1 className='admin-maintitle'>EcoMart's</h1>
@@ -285,7 +290,10 @@ export default function Admin() {
                         className='admin-searchbar'
                         placeholder='Search...'
                         value={search}
-                        onChange={(e) => setSearch(e.target.value.toLowerCase())}
+                        onChange={(e) => {
+                            setPage(1)
+                            setSearch(e.target.value)
+                        }}
                     />
 
                     <table className='products-table'>
@@ -303,81 +311,81 @@ export default function Admin() {
                         </thead>
 
                         <tbody>
-                            {Array.isArray(data) && data.map((category, key) => {
+                            {data.map((category, key) => (
 
-                                const filteredProducts = category.products.filter(x =>
-                                    x.itemname?.toLowerCase().includes(search) ||
-                                    x.itemcategory?.toLowerCase().includes(search) ||
-                                    String(x.itemcode).includes(search)
-                                )
+                                <React.Fragment key={key}>
 
-                                if (filteredProducts.length === 0) return null
+                                    {/* CATEGORY HEADER */}
+                                    <tr>
+                                        <td colSpan="8"
+                                            style={{
+                                                fontWeight: 'bold',
+                                                textAlign: 'center',
+                                                backgroundColor: '#0B9F51',
+                                                color: 'white'
+                                            }}>
+                                            {category._id}
+                                        </td>
+                                    </tr>
 
-                                return (
-                                    <React.Fragment key={key}>
-
-                                        {/* CATEGORY HEADER ROW */}
-                                        <tr>
-                                            <td
-                                                colSpan="8"
-                                                style={{
-                                                    fontWeight: 'bold',
-                                                    textAlign: 'center',
-                                                    backgroundColor: '#0B9F51',
-                                                    color: 'white'
-                                                }}
-                                            >
-                                                {category._id}
+                                    {/* PRODUCTS */}
+                                    {category.products.map((x) => (
+                                        <tr key={x._id}>
+                                            <td>{x.itemcode}</td>
+                                            <td>{x.itemname}</td>
+                                            <td>{x.qty}</td>
+                                            <td>{x.selling}</td>
+                                            <td>{x.mrp}</td>
+                                            <td>{x.netamt}</td>
+                                            <td>
+                                                <img
+                                                    src={x.itemimg}
+                                                    alt=""
+                                                    className='admin-productimage'
+                                                    loading="lazy"
+                                                />
+                                            </td>
+                                            <td>
+                                                <button
+                                                    className='crud-btn'
+                                                    onClick={() => handleEdit(x)}>
+                                                    Update
+                                                </button>
+                                                <button
+                                                    className='crud-btn'
+                                                    onClick={() => handleDelete(x._id)}>
+                                                    Delete
+                                                </button>
                                             </td>
                                         </tr>
+                                    ))}
 
-                                        {/* PRODUCTS UNDER CATEGORY */}
-                                        {filteredProducts.map((x, index) => (
-                                            <tr key={index}>
-                                                <td>{x.itemcode}</td>
-                                                <td>{x.itemname}</td>
-                                                <td>{x.qty}</td>
-                                                <td>{x.selling}</td>
-                                                <td>{x.mrp}</td>
-                                                <td>{x.netamt}</td>
-                                                <td>
-                                                    <img
-                                                        src={x.itemimg}
-                                                        alt="Product"
-                                                        className='admin-productimage'
-                                                    />
-                                                </td>
-                                                <td>
-                                                    <button
-                                                        className='crud-btn'
-                                                        onClick={() => handleEdit(x)}
-                                                    >
-                                                        Update
-                                                    </button>
-                                                    <button
-                                                        className='crud-btn'
-                                                        onClick={() => handleDelete(x._id)}
-                                                    >
-                                                        Delete
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </React.Fragment>
-                                )
-                            })}
+                                </React.Fragment>
+
+                            ))}
                         </tbody>
-
                     </table>
+
+                    {/* LOAD MORE */}
+                    <div style={{ textAlign: "center", margin: "20px" }}>
+                        <button
+                            className="crud-btn"
+                            onClick={() => setPage(prev => prev + 1)}
+                        >
+                            Load More
+                        </button>
+                    </div>
+
                 </div>
             </div>
 
             {updatepopup && (
                 <Productupdateform
                     setUpdatepopup={setUpdatepopup}
-                    data={data}
+                    data={proddata}
                 />
             )}
+
         </div>
     )
 }
