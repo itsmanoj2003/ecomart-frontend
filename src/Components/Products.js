@@ -14,45 +14,29 @@ export default function Products() {
     const { addToCart } = useCart()
 
     /* ================= API CALL ================= */
-    useEffect(() => {
+useEffect(() => {
 
-        const fetchProducts = async () => {
-            try {
-                const res = await axios.get(
-                    `https://api.ecomartsangai.in/ecomart/getproddata?page=${page}&search=${searchQuery}`
-                )
+    const fetchProducts = async () => {
+        try {
+            const res = await axios.get(
+                `https://api.ecomartsangai.in/ecomart/getproddata?page=${page}&search=${searchQuery}`
+            )
 
-                if (page === 1) {
-                    setData(res.data)
-                } else {
-                    setData(prev => {
-                        const merged = [...prev]
-
-                        res.data.forEach(newCategory => {
-                            const existing = merged.find(cat => cat._id === newCategory._id)
-
-                            if (existing) {
-                                existing.products = [
-                                    ...existing.products,
-                                    ...newCategory.products
-                                ]
-                            } else {
-                                merged.push(newCategory)
-                            }
-                        })
-
-                        return merged
-                    })
-                }
-
-            } catch (err) {
-                console.log(err)
+            if (page === 1) {
+                setData(res.data)
+            } else {
+                // 🔥 SIMPLE APPEND (NO MERGE)
+                setData(prev => [...prev, ...res.data])
             }
+
+        } catch (err) {
+            console.log(err)
         }
+    }
 
-        fetchProducts()
+    fetchProducts()
 
-    }, [page, searchQuery])
+}, [page, searchQuery])
 
     return (
         <div className='products'>
@@ -88,7 +72,7 @@ export default function Products() {
             </div>
 
             {/* ===== PRODUCTS LIST ===== */}
-            <div className='product-menu'>
+ <div className='product-menu'>
                 <div className='product-wrapper'>
 
                     {data.length > 0 ? (
@@ -101,30 +85,27 @@ export default function Products() {
                                     <h2 className='category-heading'>{category._id}</h2>
 
                                     <div className='product-grid'>
-                                        {category.products.slice(0, 10).map((product, index) => (
+                                        {category.products.map((product, index) => (
 
+                                            /* ===== OPTIMIZED CARD ===== */
                                             <div key={index} className='product-card'>
 
-                                                <div className='product-image-wrapper'>
-                                                    <img
-                                                        src={product.itemimg}
-                                                        alt={product.itemname}
-                                                        className='product-image'
-                                                        loading="lazy"
-                                                    />
-                                                </div>
+                                                <img
+                                                    src={product.itemimg}
+                                                    alt={product.itemname}
+                                                    className='product-image'
+                                                    loading="lazy"
+                                                />
 
-                                                <div className='product-details'>
-                                                    <h3>{product.itemname}</h3>
+                                                <h3 className="product-title">
+                                                    {product.itemname}
+                                                </h3>
 
-                                                    <p className='price'>
-                                                        Rs. {product.selling}<br/>
-                                                        <span className='mrp'>
-                                                            MRP: Rs. {product.mrp}
-                                                        </span>
-                                                    </p>
-
-                                                    {/* <p>Qty: {product.qty}</p> */}
+                                                <div className='price'>
+                                                    Rs. {product.selling}
+                                                    <span className='mrp'>
+                                                        Rs. {product.mrp}
+                                                    </span>
                                                 </div>
 
                                                 <button
@@ -136,7 +117,7 @@ export default function Products() {
                                                         })
                                                     }
                                                 >
-                                                    Add to Cart
+                                                    Add
                                                 </button>
 
                                             </div>
@@ -144,7 +125,7 @@ export default function Products() {
                                     </div>
                                 </div>
                             ))
-                    ) : (
+                    ): (
                         <h3 className='no-products'>Loading...</h3>
                     )}
 
