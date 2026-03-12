@@ -33,10 +33,119 @@ export default function Admin() {
     const [search, setSearch] = useState('')
 
     const [list] = useState([
-    'Dry Products', 'Sauces', 'Snacks', "Women's beauty", 'Men\'s beauty', 'Health care',
-    'Dairy Products', 'Cleaning Agents', 'Devotional products', 'Baby products',
-    'Toys and gifts', 'Home Hold', 'Oil Products', 'Juices & Beverages',
-    'Vegetables', 'Jam', 'Out of Stock'
+    'OATS & CEREAL FOOD ITEMS',
+    'COSMETIC ITEMS',
+    'BABY DIAPERS',
+    'KITCHEN ACCESSORIES',
+    'BISCUITS & COOKIES, RUSK',
+    'VINEGAR & SODA ITEMS',
+    'COOL DRINKS',
+    'DRY FRUITS & NUTS',
+    'TOYS',
+    'COSMETICS',
+    'WINE ITEMS',
+    'CHIPS ITEMS',
+    'SEMIYA ITEMS',
+    'SCHOOL BAG',
+    'COLLEGE BAG',
+    'LADIES HAND BAG',
+    'LUNCH BAG',
+    'GIFT ITEM',
+    'CLEANING PRODUCTS',
+    'MAT',
+    'KITCHEN TOWEL',
+    'BROOMS',
+    'FANCY BROOMS',
+    'LADIES HAND PURSES',
+    'LADIES SLIM BAG',
+    'ADULT DIAPER',
+    'IMPORTED HOUSE HOLD',
+    'GROCERY PRODUCTS',
+    'WATER BOTTLE',
+    'UMBRELLA',
+    'MANI MARK',
+    'IMPORTER STATIONARY',
+    'EVER SILVER',
+    'GARUTA SS',
+    'BANGLES',
+    'COVERING BANGLES',
+    'FANCY BANGLES',
+    'MILK, CURD BUTTER & CHEESE ITEMS',
+    'HAIR ACCESSORIES',
+    'COVERING EARING',
+    'MASSAGE OIL',
+    'FANCY EARINGS',
+    'SWISS GOLD EARING',
+    'AARAM',
+    'SHORT CHAIN',
+    'FANCY ITEM',
+    'KEY CHAIN',
+    'ICECREAM',
+    'PLASTIC',
+    'PLASTIC ITEM',
+    'BIRTHDAY DECOR ITEM',
+    'BAKING ITEMS',
+    'PET FOODS',
+    'TISSUE ITEM',
+    'LED BULB',
+    'HOOK',
+    'TORCH LIGHT',
+    'MEDICINE',
+    'SKIN & COSMETICS ITEMS',
+    'BABY PRODUCTS',
+    'SUGAR & JAGGERY ITEMS',
+    'COFFEE POWDER',
+    'DRINK MIX ITEMS',
+    'PICKLE',
+    'AGARBATTI & CAMPHOR',
+    'DISHWASH LIQ & SOAP POWDER',
+    'PUJA ITEMS',
+    'DATES',
+    'STATIONARY ITEMS',
+    'HAIR OIL & OTHER HAIR PRODUCTS',
+    'TALCUM POWDER',
+    'BATH SOAP & BODYWASH ITEMS',
+    'FOOD & FLOUR ITEMS',
+    'PAIN KILLER & MEDIC PRODUCTS',
+    'BODY SPRAY & FRAGRANCE',
+    'BATTERY & ELECTRONICS ITEMS',
+    'NAIL CLIPPER',
+    'CHOCOLATE & CAKE ITEMS',
+    'JAM & SPREAD ITEMS',
+    'FACE WASH, GEL & CREAM ITEMS',
+    'SHAMPOO & CONDITIONER ITEMS',
+    'HAND WASH & SANITIZER ITEMS',
+    'LIP CARE & LIP STICK ITEMS',
+    'CAR FRESHNER',
+    'HONEY',
+    'DETERGENT SOAP POWDER & LIQUID',
+    'TOOTH PASTE & POWDER, MOUTHWASH',
+    'RICE AND MILLET ITEMS',
+    'FLOOR & BATHROOM CLEANER',
+    'TOOTH BRUSH ITEMS',
+    'GHEE & DALDA ITEMS',
+    'ENERGY DRINK & POWDERS',
+    'HEALTH DRINK & MIX ITEMS',
+    'FOOD MIX & ESSENCE ITEMS',
+    'CANDLES & LIGHTS',
+    'LIQ VAPORISER & INSECTS KILLER',
+    'GLASS & KITCHEN CLEANER',
+    'TOILET & BATHROOM CLEANER',
+    'SHOE POLISH ITEMS',
+    'FABRIC CONDITIONER & WHITENER',
+    'SHAVING CREAM, LOTION & RAZOR',
+    'ROOM & BATHROOM FRAGRANCE',
+    'SPORTS ITEMS',
+    'COOKING OIL',
+    'SWEETS & SNACKS ITEMS',
+    'MASALA & SPICES',
+    'APPALAM & FRY ITEMS',
+    'BABY FOODS & MILK POWDER',
+    'NOODLES & FAST FOOD ITEMS',
+    'SAUCE & KETCHUP ITEMS',
+    'TEA POWDER',
+    'SALT ITEMS',
+    'NAPKIN ITEMS'
     ])
 
     /* 🔥 USE OPTIMIZED getproddata ROUTE */
@@ -87,12 +196,23 @@ export default function Admin() {
     }
 
     function handleDelete(id) {
-        axios
-            .delete(`https://api.ecomartsangai.in/ecomart/delete/${id}`)
-            .then(() => {
-                setPage(1) // reload first page
-            })
-    }
+
+    axios
+        .delete(`https://api.ecomartsangai.in/ecomart/delete/${id}`)
+        .then(() => {
+
+            alert("Product deleted successfully")
+
+            setData(prev =>
+                prev.map(cat => ({
+                    ...cat,
+                    products: cat.products.filter(p => p._id !== id)
+                }))
+            )
+
+        })
+        .catch(err => console.log(err))
+}
 
     function handleEdit(product) {
         setProddata(product)
