@@ -88,7 +88,7 @@ export const groupData = {
     "KITCHEN TOWEL"
   ],
 
-  "lifestyle-accessories": [
+  "fashion-accessories": [
     "LADIES HAND BAG",
     "LADIES HAND PURSES",
     "LADIES SLIM BAG",
@@ -118,24 +118,32 @@ export const groupData = {
     "IMPORTER STATIONARY"
   ],
 
-  "devotional-misc": [
+  "electronics-utilities": [
+    "BATTERY & ELECTRONICS ITEMS",
+    "LED BULB",
+    "TORCH LIGHT",
+    "HOOK"
+  ],
+
+  "health-medical": [
+    "MEDICINE",
+    "PAIN KILLER & MEDIC PRODUCTS"
+  ],
+
+  "devotional": [
     "AGARBATTI & CAMPHOR,SAMBRANI ITEMS",
     "PUJA ITEMS",
-    "CANDLES & LIGHTS",
-    "MEDICINE",
-    "BATTERY & ELECTRONICS ITEMS",
-    "TORCH LIGHT",
-    "HOOK",
-    "NAIL CLIPPER",
-    "SPORTS ITEMS",
-    "UMBRELLA",
+    "CANDLES & LIGHTS"
+  ],
+
+  "miscellaneous": [
     "PLASTIC",
     "PLASTIC ITEM",
     "IMPORTED HOUSE HOLD",
     "MANI MARK",
     "PET FOODS",
-    "LED BULB",
-    "PAIN KILLER & MEDIC PRODUCTS"
+    "SPORTS ITEMS",
+    "UMBRELLA"
   ]
 
 };

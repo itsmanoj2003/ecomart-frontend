@@ -19,7 +19,7 @@ export default function Category() {
   // 🔥 API call
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/ecomart/category/${formattedCategory}`)
+      .get(`https://api.ecomartsangai.in/ecomart/category/${formattedCategory}`)
       .then((res) => {
         console.log(res.data);   // 👈 inside block
         setProducts(res.data);

@@ -6,21 +6,8 @@ import './Home.css'
 
 
 // import homeimage from '../Components/assets/homeimg.png'
-import homeimage from '../Components/assets/groceries.png'
+import homeimage from '../Components/assets/MainBg.png'
 import cartimg from '../Components/assets/cart.png'
-import dryproducts from '../Components/assets/dryproducts.png'
-import sauce from '../Components/assets/sause.png'
-import snacks from '../Components/assets/snacks.png'
-import women from '../Components/assets/ladiesbeauty.png'
-import men from '../Components/assets/menbeauty.png'
-import healthcare from '../Components/assets/healthcare.png'
-import dairy from '../Components/assets/dairy.png'
-import cleaners from '../Components/assets/cleaners.png'
-import baby from '../Components/assets/baby.png'
-import homeproducts from '../Components/assets/homeproducts.png'
-import stationary from '../Components/assets/stationary.png'
-import dailyproducts from '../Components/assets/dailyproducts.png'
-import washingitems from '../Components/assets/washing.png'
 import { useNavigate } from 'react-router-dom'
 
 
@@ -34,15 +21,16 @@ import toys from '../Components/assets/GroupImg/toys.png'
 import bags from '../Components/assets/GroupImg/bags.png'
 import devotional from '../Components/assets/GroupImg/devotional.png'
 import kitchen from '../Components/assets/GroupImg/kitchen.png'
+import electronics from '../Components/assets/GroupImg/electronics.png'
+import healthcare from '../Components/assets/GroupImg/healthcare.png'
+import misc from '../Components/assets/GroupImg/misc.png'
+
 
 
 
 
 export default function Home() {
     const navigate=useNavigate()
-    const goToCategory = (category) => {
-    navigate(`/category/${category.toLowerCase()}`)
-    }
 
     const goToGroup = (slug) => {
     navigate(`/group/${slug}`)
@@ -90,7 +78,7 @@ export default function Home() {
 
         {/* Categories */}
 
-        <h2 className='categories-title'>Categories</h2>
+        <h2 className='categories-title'>Discover What You Need</h2>
 
         <div className='categories'>
 
@@ -160,10 +148,10 @@ export default function Home() {
             <div className='category'>
                 <div className='categories-content'>
                     <div className='categories-desccont'>
-                        <h2 className='categories-heading'>Lifestyle Accessories</h2>
+                        <h2 className='categories-heading'>Fashion & Accessories</h2>
                         <p className='categories-para'>Stylish and useful accessories – bags, jewelry, and everyday fashion essentials.<br/><br/></p>
                     </div>
-                    <button className='categories-shopbtn' onClick={() => goToGroup('lifestyle-accessories')}>View Now ➟</button>
+                    <button className='categories-shopbtn' onClick={() => goToGroup('fashion-accessories')}>View Now ➟</button>
                 </div>
                 <img src={accessories} className='categories-img'/>
             </div>
@@ -196,12 +184,48 @@ export default function Home() {
             <div className='category'>
                 <div className='categories-content'>
                     <div className='categories-desccont'>
-                        <h2 className='categories-heading'>Devotional Misc </h2>
+                        <h2 className='categories-heading'>Devotional </h2>
                         <p className='categories-para'>Spiritual and utility items – pooja essentials, lighting, and miscellaneous goods.</p>
                     </div>    
-                    <button className='categories-shopbtn' onClick={() => goToGroup('devotional-misc')}>View Now ➟</button>
+                    <button className='categories-shopbtn' onClick={() => goToGroup('devotional')}>View Now ➟</button>
                 </div>
                 <img src={devotional} className='categories-img'/>
+            </div>
+
+            {/* Devotional products */}
+            <div className='category'>
+                <div className='categories-content'>
+                    <div className='categories-desccont'>
+                        <h2 className='categories-heading'>Electronics & Utilities </h2>
+                        <p className='categories-para'>Everyday electronic essentials like batteries, lighting items, and small utility gadgets.</p>
+                    </div>    
+                    <button className='categories-shopbtn' onClick={() => goToGroup('electronics-utilities')}>View Now ➟</button>
+                </div>
+                <img src={electronics} className='categories-img'/>
+            </div>
+
+            {/* Devotional products */}
+            <div className='category'>
+                <div className='categories-content'>
+                    <div className='categories-desccont'>
+                        <h2 className='categories-heading'>Health & Medical </h2>
+                        <p className='categories-para'>Essential health and wellness items including medicines, personal care, and basic medical supplies.</p>
+                    </div>    
+                    <button className='categories-shopbtn' onClick={() => goToGroup('health-medical')}>View Now ➟</button>
+                </div>
+                <img src={healthcare} className='categories-img'/>
+            </div>
+
+            {/* Devotional products */}
+            <div className='category'>
+                <div className='categories-content'>
+                    <div className='categories-desccont'>
+                        <h2 className='categories-heading'>Plastics & Others </h2>
+                        <p className='categories-para'>Daily-use plastic items, household utilities, storage products, and miscellaneous goods.</p>
+                    </div>    
+                    <button className='categories-shopbtn' onClick={() => goToGroup('miscellaneous')}>View Now ➟</button>
+                </div>
+                <img src={misc} className='categories-img'/>
             </div>
 
         </div>
