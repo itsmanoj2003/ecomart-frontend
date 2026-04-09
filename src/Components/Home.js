@@ -16,9 +16,7 @@ import men from '../Components/assets/menbeauty.png'
 import healthcare from '../Components/assets/healthcare.png'
 import dairy from '../Components/assets/dairy.png'
 import cleaners from '../Components/assets/cleaners.png'
-import devotional from '../Components/assets/devotional.png'
 import baby from '../Components/assets/baby.png'
-import toys from '../Components/assets/toys.png'
 import homeproducts from '../Components/assets/homeproducts.png'
 import stationary from '../Components/assets/stationary.png'
 import dailyproducts from '../Components/assets/dailyproducts.png'
@@ -26,9 +24,30 @@ import washingitems from '../Components/assets/washing.png'
 import { useNavigate } from 'react-router-dom'
 
 
+// Group Images
+import foodgroceries from '../Components/assets/GroupImg/food&grocery.png'
+import personalcare from '../Components/assets/GroupImg/personalcare.png'
+import household from '../Components/assets/GroupImg/household.png'
+import babycare from '../Components/assets/GroupImg/babycare.png'
+import accessories from '../Components/assets/GroupImg/accessories.png'
+import toys from '../Components/assets/GroupImg/toys.png'
+import bags from '../Components/assets/GroupImg/bags.png'
+import devotional from '../Components/assets/GroupImg/devotional.png'
+import kitchen from '../Components/assets/GroupImg/kitchen.png'
+
+
+
 
 export default function Home() {
     const navigate=useNavigate()
+    const goToCategory = (category) => {
+    navigate(`/category/${category.toLowerCase()}`)
+    }
+
+    const goToGroup = (slug) => {
+    navigate(`/group/${slug}`)
+    }
+
   return (
     <div className='home'>
 
@@ -81,191 +100,122 @@ export default function Home() {
             <div className='category'>
                 <div className='categories-content'>
                     <div className='categories-desccont'>
-                        <h2 className='categories-heading'>Groceries</h2>
+                        <h2 className='categories-heading'>Food & Groceries</h2>
                         <p className='categories-para'>Wholesome staples for your daily meals – rice, oats, cornflakes, and more.</p>
                     </div>
-                    
+                    <button className='categories-shopbtn' onClick={() => goToGroup('food-groceries')}>View Now ➟</button>
                 </div>
-                <img src={dryproducts} className='categories-img'/>
+                <img src={foodgroceries} className='categories-img'/>
             </div>
 
             {/* Sauce Products */}
             <div className='category'>
                 <div className='categories-content'>
                     <div className='categories-desccont'>
-                        <h2 className='categories-heading'>Sauces & Mixtures<br/><br/></h2>
-                        <p className='categories-para'>Mayonnaise, Ketchup, Soy Sauce, Hot Sauce, and Mixed Fruit Jam<br/><br/></p>
+                        <h2 className='categories-heading'>Personal Care<br/><br/></h2>
+                        <p className='categories-para'>Everyday essentials for hygiene and grooming – skincare, haircare, and body care products.<br/><br/></p>
                     </div>
-                                  
+                    <button className='categories-shopbtn' onClick={() => goToGroup('personal-care')}>View Now ➟</button>
                  </div>
-                <img src={sauce} className='categories-img'/>
+                <img src={personalcare} className='categories-img'/>
             </div>
 
              {/* Snacks Products */} 
             <div className='category'>
                 <div className='categories-content'>
                     <div className='categories-desccont'>
-                        <h2 className='categories-heading'>Snacks<br/><br/></h2>
-                        <p className='categories-para'>Savory Snacks, Sweet Snacks, Homemade Snacks, and Healthy Snacks</p>
+                        <h2 className='categories-heading'>Household Cleaning</h2>
+                        <p className='categories-para'>Keep your home fresh and clean – detergents, cleaners, and daily maintenance essentials.</p>
                     </div>
-                    
+                    <button className='categories-shopbtn' onClick={() => goToGroup('household-cleaning')}>View Now ➟</button>
                 </div>
-                <img src={snacks} className='categories-img'/>
+                <img src={household} className='categories-img'/>
             </div>
 
             {/* Women beauty products */}
             <div className='category'>
                 <div className='categories-content'>
                     <div className='categories-desccont'>
-                        <h2 className='categories-heading'>Oil and Ghee</h2><br/>
-                        <p className='categories-para'>Pure cooking oils and aromatic ghee for traditional and modern dishes.</p>
-                        
+                        <h2 className='categories-heading'>Baby Care</h2>
+                        <p className='categories-para'>Gentle and safe products for babies – diapers, nutrition, and daily care essentials.</p>
                     </div>
+                    <button className='categories-shopbtn' onClick={() => goToGroup('baby-care')}>View Now ➟</button>
                 </div>
-                <img src={women} className='categories-img'/>
+                <img src={babycare} className='categories-img'/>
             </div>
 
             {/* Mens beauty products */}
             <div className='category'>
                 <div className='categories-content'>
                     <div className='categories-desccont'>
-                        <h2 className='categories-heading'>Flours</h2>
-                        <p className='categories-para'>Bake or cook with the finest flours and ready-to-use mixes.</p>
+                        <h2 className='categories-heading'>Kitchen</h2>
+                        <p className='categories-para'>Essential tools and items for your kitchen – utensils, storage, and cooking accessories.</p>
                     </div>
-                    
+                    <button className='categories-shopbtn' onClick={() => goToGroup('kitchen-home')}>View Now ➟</button>
                 </div>
-                <img src={men} className='categories-img'/>
+                <img src={kitchen} className='categories-img'/>
             </div>
 
             {/* Health and care products */}
             <div className='category'>
                 <div className='categories-content'>
                     <div className='categories-desccont'>
-                        <h2 className='categories-heading'>Health Mix</h2>
-                        <p className='categories-para'>A nourishing blend of grains, pulses, and nuts for a wholesome start.<br/><br/></p>
-                        
+                        <h2 className='categories-heading'>Lifestyle Accessories</h2>
+                        <p className='categories-para'>Stylish and useful accessories – bags, jewelry, and everyday fashion essentials.<br/><br/></p>
                     </div>
+                    <button className='categories-shopbtn' onClick={() => goToGroup('lifestyle-accessories')}>View Now ➟</button>
                 </div>
-                <img src={healthcare} className='categories-img'/>
+                <img src={accessories} className='categories-img'/>
             </div>
 
             {/* Dairy and Beverages products */}
             <div className='category'>
                 <div className='categories-content'>
                     <div className='categories-desccont'>
-                        <h2 className='categories-heading'>Rice & Millets</h2>
-                        <p className='categories-para'>Nutritious staples from classic basmati to wholesome millets – perfect for every Indian kitchen.</p>
+                        <h2 className='categories-heading'>Kids & Toys</h2>
+                        <p className='categories-para'>Fun and engaging products for kids – toys, games, and celebration items.</p>
                     </div>
-                    
+                    <button className='categories-shopbtn' onClick={() => goToGroup('kids-toys')}>View Now ➟</button>
                 </div>
-                <img src={dairy} className='categories-img'/>
+                <img src={toys} className='categories-img'/>
             </div>
 
             {/* Cleaning products */}
             <div className='category'>
                 <div className='categories-content'>
                     <div className='categories-desccont'>
-                        <h2 className='categories-heading'>Cleaning products<br/></h2>
-                        <p className='categories-para'>Toilet Cleaners, Scrub Pads and Brushes, Floor Cleaners, Glass Cleaners, and Toilet Brushes<br/><br/></p>
+                        <h2 className='categories-heading'>Stationary Bags<br/></h2>
+                        <p className='categories-para'>Everything for school and office – bags, notebooks, and essential supplies.</p>
                     </div>
-                    
+                    <button className='categories-shopbtn' onClick={() => goToGroup('stationary-bags')}>View Now ➟</button>
                 </div>
-                <img src={cleaners} className='categories-img'/>
+                <img src={bags} className='categories-img'/>
             </div>
             
             {/* Devotional products */}
             <div className='category'>
                 <div className='categories-content'>
                     <div className='categories-desccont'>
-                        <h2 className='categories-heading'>Devotional Products </h2>
-                        <p className='categories-para'>Incense Sticks, and Champer<br/><br/><br/></p>
+                        <h2 className='categories-heading'>Devotional Misc </h2>
+                        <p className='categories-para'>Spiritual and utility items – pooja essentials, lighting, and miscellaneous goods.</p>
                     </div>    
-                    
+                    <button className='categories-shopbtn' onClick={() => goToGroup('devotional-misc')}>View Now ➟</button>
                 </div>
                 <img src={devotional} className='categories-img'/>
             </div>
 
-            {/* Baby products */}
-            <div className='category'>
-                <div className='categories-content'>
-                    <div className='categories-desccont'>
-                        <h2 className='categories-heading'>Baby Products</h2>
-                        <p className='categories-para'>Diapers, Cashews, Baby Wipes, Diaper Rash Cream, Bottles, Baby Lotion, and Baby Soap/Shampoo</p>
-                    </div>
-                    
-                </div>
-                <img src={baby} className='categories-img'/>
-            </div>
-
-            {/* Toys and gifts */}
-            <div className='category'>
-                <div className='categories-content'>
-                    <div className='categories-desccont'>
-                        <h2 className='categories-heading'>Toys and gifts</h2>
-                        <p className='categories-para'>MyBoxPrinter Custom Clock Packaging Boxes<br/><br/><br/></p>
-                    </div>
-                    
-                </div>
-                <img src={toys} className='categories-img'/>
-            </div>
-
-            {/* Home products */}
-            <div className='category'>
-                <div className='categories-content'>
-                    <div className='categories-desccont'>
-                        <h2 className='categories-heading'>Body Wash Products</h2>
-                        <p className='categories-para'>Gentle care for your skin with refreshing fragrances and trusted protection.</p>
-                    </div>
-                    
-                </div>
-                <img src={homeproducts} className='categories-img'/>
-            </div>
-
-               {/* Stationary Items */}
-            <div className='category'>
-                <div className='categories-content'>
-                    <div className='categories-desccont'>
-                        <h2 className='categories-heading'>Stationary</h2>
-                        <p className='categories-para'>From notebooks to pens – stock up on everyday essentials.</p>
-                    </div>
-                    
-                </div>
-                <img src={stationary} className='categories-img'/>
-            </div>
-
-            {/* Daily Products */}
-            <div className='category'>
-                <div className='categories-content'>
-                    <div className='categories-desccont'>
-                        <h2 className='categories-heading'>Daily Products</h2>
-                        <p className='categories-para'>All your must-haves – from morning to night, in one spot.</p>
-                    </div>
-                    
-                </div>
-                <img src={dailyproducts} className='categories-img'/>
-            </div>
-
-            {/* Washing Items */}
-            <div className='category'>
-                <div className='categories-content'>
-                    <div className='categories-desccont'>
-                        <h2 className='categories-heading'>Washing Products</h2>
-                        <p className='categories-para'>From powders to liquids – powerful cleaning for every fabric.</p>
-                    </div>
-                    
-                </div>
-                <img src={washingitems} className='categories-img'/>
-            </div>
-
         </div>
 
         </div>
 
         <br/>
         <br/>
-        <br/>
-        <br/>
-        <br/>
+
+
+        
+        <footer className='footer'>
+            <p><span className='copyrights-symbol'>&copy;</span> 2026 EcoMart. All rights reserved | Developed by Soft Stor Technology</p>
+        </footer>
 
 
     </div>

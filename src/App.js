@@ -23,6 +23,8 @@ const LazyAccount=React.lazy(()=>import('./Components/Account'))
 const LazyLogin=React.lazy(()=>import('./Components/Login'))
 const LazySignup=React.lazy(()=>import('./Components/Signup'))
 const LazyBill=React.lazy(()=>import('./Components/Bill'))
+const LazyCategory = React.lazy(() => import('./Components//Category'));
+const LazyGroup = React.lazy(() => import('./Components/GroupPage'));
 
 // Admin Lazy Loads
 const LazyAdmin=React.lazy(()=>import('./Components/Admin'))
@@ -51,6 +53,9 @@ function App() {
         <Route path='/login' element={<React.Suspense fallback={<Loader/>}><LazyLogin/></React.Suspense>}/>
         <Route path='/signup' element={<React.Suspense fallback={<Loader/>}><LazySignup/></React.Suspense>}/>
         <Route path='/bill' element={<React.Suspense fallback={<Loader/>}><LazyBill/></React.Suspense>}/>
+        <Route path='/category/:categoryName' element={<React.Suspense fallback={<Loader/>}><LazyCategory/></React.Suspense>}/>
+        <Route path='/group/:groupName' element={<React.Suspense fallback={<Loader/>}><LazyGroup/></React.Suspense>}/>
+
 
         {/* Admin Side Routes */}
         <Route path='/admin' element={<React.Suspense fallback={<Loader/>}> <PrivateRoute requiredRole="admin"><LazyAdmin /></PrivateRoute></React.Suspense>}/>

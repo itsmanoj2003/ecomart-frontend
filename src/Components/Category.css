@@ -1,0 +1,96 @@
+.category-main{
+    width: 95%;
+    height: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-radius: 10px;
+    background-color: #0B9F51;
+    box-shadow: 5px 5px 10px black;
+    font-family: "Poppins", serif;
+    color: white;
+}
+
+.categories-back-btn{
+    height: 30px;
+    width: 100px;
+    border: none;
+    border-radius: 5px;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+}
+
+.categories-back-btn:hover{
+    background-color: rgb(215, 8, 8);
+}
+
+
+
+/* Media Query */
+
+/* iPhone 14 Pro */
+
+@media only screen and (min-width: 350px) and (max-width: 400px){
+
+    .category-main{
+        flex-direction: column;
+        justify-content: center;
+        height: 200px;
+    }
+
+    .categories-back-btn{
+        margin-top: 20px;
+    }
+
+    .category-title{
+        font-size: 15px;
+    }
+}
+
+
+
+
+
+/* iPhone 14 Pro Max */
+
+@media  (max-width: 430px) {
+
+    .category-main{
+        flex-direction: column;
+        justify-content: center;
+        height: 200px;
+    }
+
+    .categories-back-btn{
+        margin-top: 20px;
+    }
+
+    .category-title{
+        font-size: 15px;
+    }
+
+}
+
+
+
+
+/* Pixel */
+
+@media only screen and (min-width: 440px) and (max-width: 500px){
+
+    .category-main{
+        flex-direction: column;
+        justify-content: center;
+        height: 200px;
+    }
+
+    .categories-back-btn{
+        margin-top: 20px;
+    }
+
+    .category-title{
+        font-size: 15px;
+    }
+    
+}

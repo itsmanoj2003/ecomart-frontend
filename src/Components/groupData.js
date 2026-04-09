@@ -1,0 +1,141 @@
+export const groupData = {
+
+  "food-groceries": [
+    "OATS & CEREAL FOOD ITEMS",
+    "BISCUITS & COOKIES, RUSK",
+    "CHIPS ITEMS",
+    "SEMIYA ITEMS",
+    "SWEETS & SNACKS ITEMS",
+    "NOODLES & FAST FOOD ITEMS",
+    "MASALA & SPICES",
+    "APPALAM & FRY ITEMS",
+    "FOOD & FLOUR ITEMS",
+    "RICE AND MILLET ITEMS",
+    "SUGAR & JAGGERY ITEMS",
+    "HONEY",
+    "TEA POWDER",
+    "COFFEE POWDER",
+    "DRINK MIX ITEMS",
+    "HEALTH DRINK & MIX ITEMS",
+    "FOOD MIX & ESSENCE ITEMS",
+    "JAM & SPREAD ITEMS",
+    "PICKLE",
+    "DATES",
+    "CHOCOLATE & CAKE ITEMS",
+    "COOL DRINKS",
+    "ENERGY DRINK & POWDERS",
+    "SALT ITEMS",
+    "VINEGAR & SODA ITEMS",
+    "BAKING ITEMS",
+    "ICECREAM",
+    "COOKING OIL",
+    "SAUCE & KETCHUP ITEMS",
+    "MILK, CURD BUTTER & CHEESE ITEMS",
+    "GROCERY PRODUCTS",
+    "DRY FRUITS & NUTS"
+  ],
+
+  "personal-care": [
+    "COSMETIC ITEMS",
+    "COSMETICS",
+    "SKIN & COSMETICS ITEMS",
+    "FACE WASH, GEL & CREAM ITEMS",
+    "SHAMPOO & CONDITIONER ITEMS",
+    "BATH SOAP & BODYWASH ITEMS",
+    "TALCUM POWDER",
+    "BODY SPRAY & FRAGRANCE",
+    "HAIR OIL & OTHER HAIR PRODUCTS",
+    "LIP CARE & LIP STICK ITEMS",
+    "HAND WASH & SANITIZER ITEMS",
+    "TOOTH PASTE & POWDER, MOUTHWASH",
+    "TOOTH BRUSH ITEMS",
+    "SHAVING CREAM, LOTION & RAZOR",
+    "ROOM & BATHROOM FRAGRANCE",
+    "CAR FRESHNER",
+    "HAIR ACCESSORIES",
+    "MASSAGE OIL"
+  ],
+
+  "household-cleaning": [
+    "CLEANING PRODUCTS",
+    "FLOOR & BATHROOM CLEANER",
+    "TOILET & BATHROOM CLEANER",
+    "GLASS & KITCHEN CLEANER",
+    "DISHWASH LIQ & SOAP POWDER",
+    "DETERGENT SOAP POWDER & LIQUID",
+    "FABRIC CONDITIONER & WHITENER",
+    "BROOMS",
+    "FANCY BROOMS",
+    "MAT",
+    "TISSUE ITEM",
+    "NAPKIN ITEMS",
+    "LIQ VAPORISER & INSECTS KILLER",
+    "SHOE POLISH ITEMS"
+  ],
+
+  "baby-care": [
+    "BABY DIAPERS",
+    "BABY PRODUCTS",
+    "BABY FOODS & MILK POWDER",
+    "ADULT DIAPER"
+  ],
+
+  "kitchen-home": [
+    "KITCHEN ACCESSORIES",
+    "EVER SILVER",
+    "GARUTA SS",
+    "WATER BOTTLE",
+    "KITCHEN TOWEL"
+  ],
+
+  "lifestyle-accessories": [
+    "LADIES HAND BAG",
+    "LADIES HAND PURSES",
+    "LADIES SLIM BAG",
+    "BANGLES",
+    "COVERING BANGLES",
+    "FANCY BANGLES",
+    "COVERING EARING",
+    "FANCY EARINGS",
+    "SWISS GOLD EARING",
+    "AARAM",
+    "SHORT CHAIN",
+    "KEY CHAIN",
+    "GIFT ITEM",
+    "FANCY ITEM"
+  ],
+
+  "kids-toys": [
+    "TOYS",
+    "BIRTHDAY DECOR ITEM"
+  ],
+
+  "stationary-bags": [
+    "SCHOOL BAG",
+    "COLLEGE BAG",
+    "LUNCH BAG",
+    "STATIONARY ITEMS",
+    "IMPORTER STATIONARY"
+  ],
+
+  "devotional-misc": [
+    "AGARBATTI & CAMPHOR,SAMBRANI ITEMS",
+    "PUJA ITEMS",
+    "CANDLES & LIGHTS",
+    "MEDICINE",
+    "BATTERY & ELECTRONICS ITEMS",
+    "TORCH LIGHT",
+    "HOOK",
+    "NAIL CLIPPER",
+    "SPORTS ITEMS",
+    "UMBRELLA",
+    "PLASTIC",
+    "PLASTIC ITEM",
+    "IMPORTED HOUSE HOLD",
+    "MANI MARK",
+    "PET FOODS",
+    "LED BULB",
+    "PAIN KILLER & MEDIC PRODUCTS"
+  ]
+
+};

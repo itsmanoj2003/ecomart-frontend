@@ -191,9 +191,9 @@
 }
 
 .categories-img{
-    height: 100px;
+    height: 150px;
     width: 150px;
-    margin-top: 20px;
+    border-radius: 5px;
 }
 
 .categories-shopbtn{
@@ -216,6 +216,22 @@
 
 .mobilehomeimg-container,.mobilehome-img{
     display: none;
+}
+
+
+.footer{
+    height: 70px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Poppins", serif;
+    color: #333333cd;
+    font-size: 13px;
+}
+
+.copyrights-symbol{
+    font-size: 15px;
 }
 
 
@@ -318,6 +334,14 @@
         grid-template: repeat(1,1fr)/repeat(1,1fr);
     }
 
+    .footer{
+        font-size: 10px;
+    }
+
+    .copyrights-symbol{
+        font-size: 12px;
+    }
+
 }
 
 
@@ -364,6 +388,14 @@
         display: grid;
         grid-template: repeat(1,1fr)/repeat(1,1fr);
         margin-left: 45px;
+    }
+
+    .footer{
+        font-size: 10px;
+    }
+
+    .copyrights-symbol{
+        font-size: 12px;
     }
 
 }
